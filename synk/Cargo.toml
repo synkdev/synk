@@ -3,6 +3,10 @@ name = "synk"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "synk"
+path = "src/main.rs"
 
 [dependencies]
+synk-gui = { path = "../synk-gui" }
+synk-core = { path = "../synk-core" }

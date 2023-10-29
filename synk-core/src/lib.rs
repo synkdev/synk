@@ -1,14 +1,20 @@
-pub fn add(left: usize, right: usize) -> usize {
-	left + right
+use iced::Application;
+
+pub struct Synk {
+	pub title: String,
+	pub count: i32,
 }
 
-#[cfg(test)]
-mod tests {
-	use super::*;
+pub enum Message {}
 
-	#[test]
-	fn it_works() {
-		let result = add(2, 2);
-		assert_eq!(result, 4);
+impl Application for Synk {
+	type Message = Message;
+
+	fn new(_flags: Self::flags) -> Self {
+		Synk { title: String::from("Synk"), count: 0 }
+	}
+
+	fn title(&self) -> String {
+		String::from("Synk")
 	}
 }

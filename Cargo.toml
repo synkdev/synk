@@ -1,12 +1,6 @@
 [workspace]
 resolver = "2"
 
-members = [
-	"synk",
-	"synk-core",
-	"synk-gui"
-]
+members = ["synk-core", "synk-gui"]
 
-default-members = [
-	"synk"
-]
+default-members = ["synk-core"]
