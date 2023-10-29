@@ -1,8 +1,12 @@
 [package]
-name = "synk-core"
+name = "synk"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "synk"
+path = "src/main.rs"
 
 [dependencies]
 synk-gui = { path = "../synk-gui" }
+synk-core = { path = "../synk-core" }

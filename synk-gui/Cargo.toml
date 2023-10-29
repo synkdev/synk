@@ -4,4 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+synk-core = { path = "../synk-core" }
+
 iced = { version = "0.10.0", features = ["image", "debug"] }
