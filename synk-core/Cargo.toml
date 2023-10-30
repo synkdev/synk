@@ -5,4 +5,7 @@ edition = "2021"
 
 
 [dependencies]
-synk-gui = { path = "../synk-gui" }
+iced = { version = "0.12", git = "https://github.com/iced-rs/iced/", features = [
+    "lazy",
+    "debug",
+] }

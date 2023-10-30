@@ -1,3 +1,9 @@
+use iced::{
+	application::Application,
+	Settings,
+};
+use synk_gui::Synk;
+
 fn main() {
-	println!("Hello, world!");
+	Synk::run(Settings::default());
 }
