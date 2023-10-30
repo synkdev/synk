@@ -2225,10 +2225,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "synk"
+version = "0.1.0"
+dependencies = [
+ "iced",
+ "synk-core",
+ "synk-gui",
+]
+
+[[package]]
 name = "synk-core"
 version = "0.1.0"
 dependencies = [
- "synk-gui",
+ "iced",
 ]
 
 [[package]]
@@ -2236,6 +2245,7 @@ name = "synk-gui"
 version = "0.1.0"
 dependencies = [
  "iced",
+ "synk-core",
 ]
 
 [[package]]

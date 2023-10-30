@@ -5,4 +5,4 @@ edition = "2021"
 
 
 [dependencies]
-synk-gui = { path = "../synk-gui" }
+iced = "0.10.0"

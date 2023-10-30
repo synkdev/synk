@@ -10,3 +10,4 @@ path = "src/main.rs"
 [dependencies]
 synk-gui = { path = "../synk-gui" }
 synk-core = { path = "../synk-core" }
+iced = { version = "0.10.0", features = ["image"] }
