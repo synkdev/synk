@@ -1,13 +1,13 @@
+mod components;
+
+use crate::components::editor::editor;
 use iced::{
-	widget::{
-		button,
-		column,
-		text,
-	},
+	application::Application,
+	widget::container,
 	Alignment,
-	Application,
 	Command,
 	Element,
+	Length,
 	Theme,
 };
 
@@ -26,8 +26,7 @@ pub struct Synk {
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
-	Increment,
-	Decrement,
+	OpenFile,
 }
 
 impl Application for Synk {
@@ -49,19 +48,11 @@ impl Application for Synk {
 
 	fn update(&mut self, message: Message) -> Command<Message> {
 		match message {
-			Message::Decrement => self.count -= 1,
-			Message::Increment => self.count += 1,
+			Message::OpenFile => (),
 		}
 		Command::none()
 	}
 	fn view(&self) -> Element<Message> {
-		column![
-			button("Increment").on_press(Message::Increment),
-			text(self.count).size(50),
-			button("Decrement").on_press(Message::Decrement)
-		]
-		.padding(20)
-		.align_items(Alignment::Center)
-		.into()
+		container(editor()).padding(20).height(Length::Fill).center_y().center_x().into()
 	}
 }

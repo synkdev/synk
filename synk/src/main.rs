@@ -1,5 +1,5 @@
 use iced::{
-	Application,
+	application::Application,
 	Settings,
 };
 use synk_gui::Synk;
