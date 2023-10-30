@@ -5,8 +5,10 @@ use iced::{
 		text,
 	},
 	Alignment,
+	Application,
+	Command,
 	Element,
-	Sandbox,
+	Theme,
 };
 
 pub enum Mode {
@@ -28,22 +30,29 @@ pub enum Message {
 	Decrement,
 }
 
-impl Sandbox for Synk {
+impl Application for Synk {
 	type Message = Message;
+	type Flags = ();
+	type Theme = Theme;
+	type Executor = iced::executor::Default;
 
-	fn new() -> Self {
-		Synk { title: String::from("Synk"), count: 0, is_dirty: false, mode: Mode::Normal }
+	fn new(_flags: Self::Flags) -> (Synk, Command<Message>) {
+		(
+			Synk { title: String::from("Synk"), count: 0, is_dirty: false, mode: Mode::Normal },
+			Command::none(),
+		)
 	}
 
 	fn title(&self) -> String {
 		String::from("Synk")
 	}
 
-	fn update(&mut self, message: Message) {
+	fn update(&mut self, message: Message) -> Command<Message> {
 		match message {
 			Message::Decrement => self.count -= 1,
 			Message::Increment => self.count += 1,
 		}
+		Command::none()
 	}
 	fn view(&self) -> Element<Message> {
 		column![
