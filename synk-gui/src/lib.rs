@@ -2,14 +2,8 @@ mod components;
 
 use iced::{
 	application::Application,
-	widget::{
-		container,
-		Container,
-		Text,
-	},
 	Command,
 	Element,
-	Length,
 	Theme,
 };
 use iced_aw::Split;
@@ -65,6 +59,21 @@ impl Application for Synk {
 		Command::none()
 	}
 	fn view(&self) -> Element<Message> {
-		container(self.view_editor()).into()
+		let sidebar = self.view_sidebar();
+		let editor = self.view_editor();
+
+		Split::new(
+			sidebar.into(),
+			editor.into(),
+			self.sidebar_width,
+			iced_aw::split::Axis::Vertical,
+			Message::SidebarResize,
+		)
+		.padding(1.0)
+		.into()
+	}
+
+	fn theme(&self) -> Self::Theme {
+		Theme::Dark
 	}
 }
