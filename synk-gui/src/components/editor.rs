@@ -10,6 +10,6 @@ use crate::{
 
 impl Synk {
 	pub fn view_editor(&self) -> iced::Element<Message> {
-		container(text("hello")).padding(10).into()
+		container(text("editor")).padding(10).into()
 	}
 }

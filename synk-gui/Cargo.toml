@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 synk-core = { path = "../synk-core" }
-iced = { version = "0.12", git = "https://github.com/iced-rs/iced/", features = [
+iced = { version = "0.12", git = "https://github.com/synkdev/iced/", features = [
     "lazy",
     "debug",
 ] }
