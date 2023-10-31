@@ -1,6 +1,9 @@
-use iced::widget::{
-	container,
-	text,
+use iced::{
+	widget::{
+		Container,
+		Text,
+	},
+	Length,
 };
 
 use crate::{
@@ -10,6 +13,11 @@ use crate::{
 
 impl Synk {
 	pub fn view_sidebar(&self) -> iced::Element<Message> {
-		container(text("sidebar")).padding(10).into()
+		Container::new(Text::new("First"))
+			.width(Length::Fill)
+			.height(Length::Fill)
+			.center_x()
+			.center_y()
+			.into()
 	}
 }
