@@ -1,10 +1,8 @@
 mod components;
 
-use crate::components::editor::editor;
 use iced::{
 	application::Application,
 	widget::container,
-	Alignment,
 	Command,
 	Element,
 	Length,
@@ -53,6 +51,6 @@ impl Application for Synk {
 		Command::none()
 	}
 	fn view(&self) -> Element<Message> {
-		container(editor()).padding(20).height(Length::Fill).center_y().center_x().into()
+		container(self.view_editor()).padding(20).height(Length::Fill).center_y().center_x().into()
 	}
 }
