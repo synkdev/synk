@@ -1,15 +1,18 @@
 mod components;
 
-use crate::components::editor::editor;
 use iced::{
 	application::Application,
-	widget::container,
-	Alignment,
+	widget::{
+		container,
+		Container,
+		Text,
+	},
 	Command,
 	Element,
 	Length,
 	Theme,
 };
+use iced_aw::Split;
 
 pub enum Mode {
 	Insert,
@@ -22,11 +25,13 @@ pub struct Synk {
 	pub count: i32,
 	pub is_dirty: bool,
 	pub mode: Mode,
+	pub sidebar_width: Option<u16>,
 }
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
 	OpenFile,
+	SidebarResize(u16),
 }
 
 impl Application for Synk {
@@ -37,7 +42,13 @@ impl Application for Synk {
 
 	fn new(_flags: Self::Flags) -> (Synk, Command<Message>) {
 		(
-			Synk { title: String::from("Synk"), count: 0, is_dirty: false, mode: Mode::Normal },
+			Synk {
+				title: String::from("Synk"),
+				count: 0,
+				is_dirty: false,
+				mode: Mode::Normal,
+				sidebar_width: Some(300),
+			},
 			Command::none(),
 		)
 	}
@@ -49,10 +60,11 @@ impl Application for Synk {
 	fn update(&mut self, message: Message) -> Command<Message> {
 		match message {
 			Message::OpenFile => (),
+			Message::SidebarResize(size) => self.sidebar_width = Some(size),
 		}
 		Command::none()
 	}
 	fn view(&self) -> Element<Message> {
-		container(editor()).padding(20).height(Length::Fill).center_y().center_x().into()
+		container(self.view_editor()).into()
 	}
 }

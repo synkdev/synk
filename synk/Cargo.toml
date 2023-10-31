@@ -10,7 +10,10 @@ path = "src/main.rs"
 [dependencies]
 synk-gui = { path = "../synk-gui" }
 synk-core = { path = "../synk-core" }
-iced = { version = "0.12", git = "https://github.com/iced-rs/iced/", features = [
+iced = { version = "0.12", git = "https://github.com/synkdev/iced/", features = [
     "lazy",
     "debug",
 ] }
+anyhow = "1.0.75"
+lazy_static = "1.4.0"
+parking_lot = "0.12.1"
