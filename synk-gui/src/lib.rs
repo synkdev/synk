@@ -65,17 +65,6 @@ impl Application for Synk {
 		Command::none()
 	}
 	fn view(&self) -> Element<Message> {
-		Split::new(
-			self.view_sidebar().into(),
-			self.view_editor().into(),
-			self.sidebar_width,
-			iced_aw::split::Axis::Vertical,
-			Message::SidebarResize,
-		)
-		.into()
-	}
-
-	fn theme(&self) -> Self::Theme {
-		Theme::Light
+		container(self.view_editor()).into()
 	}
 }
