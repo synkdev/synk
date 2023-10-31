@@ -4,6 +4,8 @@ use iced::{
 };
 use synk_gui::Synk;
 
-fn main() {
-	Synk::run(Settings::default());
+fn main() -> anyhow::Result<()> {
+	Synk::run(Settings::default())?;
+
+	Ok(())
 }

@@ -14,3 +14,4 @@ iced = { version = "0.12", git = "https://github.com/iced-rs/iced/", features = 
     "lazy",
     "debug",
 ] }
+anyhow = "1.0.75"
