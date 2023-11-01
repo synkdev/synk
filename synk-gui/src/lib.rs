@@ -2,11 +2,12 @@ mod components;
 
 use iced::{
 	application::Application,
+	widget::Container,
 	Command,
 	Element,
 	Theme,
 };
-use iced_aw::Split;
+use iced_aw::native::Split;
 
 pub enum Mode {
 	Insert,
@@ -20,6 +21,7 @@ pub struct Synk {
 	pub is_dirty: bool,
 	pub mode: Mode,
 	pub sidebar_width: Option<u16>,
+	pub sidebar_disabled: bool,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -42,6 +44,7 @@ impl Application for Synk {
 				is_dirty: false,
 				mode: Mode::Normal,
 				sidebar_width: Some(300),
+				sidebar_disabled: false,
 			},
 			Command::none(),
 		)
@@ -54,23 +57,29 @@ impl Application for Synk {
 	fn update(&mut self, message: Message) -> Command<Message> {
 		match message {
 			Message::OpenFile => (),
-			Message::SidebarResize(size) => self.sidebar_width = Some(size),
+			Message::SidebarResize(size) => {
+				if size < 100 {
+					self.sidebar_disabled = true
+				} else {
+					self.sidebar_width = Some(size)
+				}
+			}
 		}
 		Command::none()
 	}
 	fn view(&self) -> Element<Message> {
-		let sidebar = self.view_sidebar();
-		let editor = self.view_editor();
-
-		Split::new(
-			sidebar.into(),
-			editor.into(),
-			self.sidebar_width,
-			iced_aw::split::Axis::Vertical,
-			Message::SidebarResize,
-		)
-		.padding(1.0)
-		.into()
+		if !self.sidebar_disabled {
+			Split::new(
+				self.view_sidebar(),
+				self.view_editor(),
+				self.sidebar_width,
+				iced_aw::split::Axis::Vertical,
+				Message::SidebarResize,
+			)
+			.into()
+		} else {
+			Container::new(self.view_editor()).into()
+		}
 	}
 
 	fn theme(&self) -> Self::Theme {
