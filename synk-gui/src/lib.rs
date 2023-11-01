@@ -57,13 +57,8 @@ impl Application for Synk {
 	fn update(&mut self, message: Message) -> Command<Message> {
 		match message {
 			Message::OpenFile => (),
-			Message::SidebarResize(size) => {
-				if size < 100 {
-					self.sidebar_disabled = true
-				} else {
-					self.sidebar_width = Some(size)
-				}
-			}
+			Message::SidebarResize(size) if size < 150 => self.sidebar_disabled = true,
+			Message::SidebarResize(size) => self.sidebar_width = Some(size),
 		}
 		Command::none()
 	}
