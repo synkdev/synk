@@ -5,5 +5,5 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.79"
-eframe = "0.25.0"
+eframe = { version = "0.25.0", default-features = false, features = ["wgpu"] }
 egui = "0.25.0"
