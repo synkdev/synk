@@ -7,6 +7,13 @@ pub struct Ui {
 }
 
 impl Ui {
+    pub fn new() -> Self {
+        Ui {
+            title: "Synk Editor",
+            app_id: "synk",
+        }
+    }
+
     pub fn native_options(&self) -> NativeOptions {
         NativeOptions {
             viewport: ViewportBuilder::default()

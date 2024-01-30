@@ -10,3 +10,6 @@ edition = "2021"
 [dependencies]
 ui = { path = "crates/ui" }
 core = { path = "crates/core" }
+anyhow = "1.0.79"
+eframe = { version = "0.25.0", default-features = false, features = ["wgpu"] }
+egui = "0.25.0"
