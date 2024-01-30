@@ -11,5 +11,9 @@ edition = "2021"
 ui = { path = "crates/ui" }
 core = { path = "crates/core" }
 anyhow = "1.0.79"
-eframe = { version = "0.25.0", default-features = false, features = ["wgpu"] }
+eframe = { version = "0.25.0", default-features = false, features = [
+	"glow",
+	"default_fonts",
+	"wayland",
+] }
 egui = "0.25.0"
