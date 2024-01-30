@@ -1,3 +1,7 @@
+use egui::epaint;
+use egui::style;
+use egui::Color32;
+
 // Most of the stuff here is from Catppuccin.
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq)]
@@ -56,9 +60,44 @@ impl Theme {
             surface2: Color32::from_rgb(88, 91, 112),
             surface1: Color32::from_rgb(69, 71, 90),
             surface0: Color32::from_rgb(49, 50, 68),
-            base: Color32::from_rgb(30, 30, 46),
+            base: Color32::from_rgb(30, 29, 45),
             mantle: Color32::from_rgb(24, 24, 37),
             crust: Color32::from_rgb(17, 17, 27),
+        }
+    }
+
+    pub fn visuals(&self) -> egui::Visuals {
+        egui::Visuals {
+            override_text_color: Some(self.text),
+            hyperlink_color: self.blue,
+            faint_bg_color: self.surface0,
+            extreme_bg_color: self.crust,
+            code_bg_color: self.mantle,
+            warn_fg_color: self.peach,
+            error_fg_color: self.maroon,
+            window_fill: self.base,
+            panel_fill: self.base,
+            window_stroke: egui::Stroke {
+                color: self.overlay1,
+                width: 2.0,
+            },
+            selection: style::Selection {
+                bg_fill: self.blue.linear_multiply(0.2),
+                stroke: egui::Stroke {
+                    color: self.overlay1,
+                    width: 2.0,
+                },
+            },
+            window_shadow: epaint::Shadow {
+                color: self.base,
+                ..Default::default()
+            },
+            popup_shadow: epaint::Shadow {
+                color: self.base,
+                ..Default::default()
+            },
+            dark_mode: true,
+            ..Default::default()
         }
     }
 }

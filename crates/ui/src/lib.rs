@@ -1,3 +1,5 @@
+pub mod theme;
+
 use eframe::{App, NativeOptions};
 use egui::ViewportBuilder;
 
@@ -29,7 +31,8 @@ pub fn launch(native_options: NativeOptions) -> anyhow::Result<()> {
 
 impl Ui {
     pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
-        cc.egui_ctx.set_style(style);
+        let catppuccin_theme = theme::Theme::new();
+        cc.egui_ctx.set_visuals(catppuccin_theme.visuals());
         Ui {
             text: "some text".to_string(),
         }
