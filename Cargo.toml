@@ -1,6 +1,0 @@
-[workspace]
-resolver = "2"
-
-members = [ "crates/synk", "crates/synk-core", "crates/synk-gui"]
-
-default-members = [ "crates/synk", "crates/synk-core"]
