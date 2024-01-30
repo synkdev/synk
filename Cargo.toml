@@ -1,0 +1,12 @@
+workspace = { members = ["crates/core", "crates/ui"] }
+
+[package]
+name = "synk"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ui = { path = "crates/ui" }
+core = { path = "crates/core" }
