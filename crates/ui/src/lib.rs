@@ -60,7 +60,20 @@ impl App for Ui {
             .width_range(150.0..=400.0)
             .default_width(250.0)
             .show_animated(cx, true, |ui| {
-                ui.horizontal(|ui| ui.label("files"));
+                ui.allocate_ui_with_layout(
+                    egui::Vec2 {
+                        x: ui.available_size().x,
+                        y: 40.0,
+                    },
+                    egui::Layout::left_to_right(egui::Align::Center),
+                    |ui| {
+                        ui.label("files");
+                        // ui.add_space(ui.available_size().x);
+                        ui.label("git");
+                        // ui.add_space(ui.available_size().x);
+                        ui.label("tabs");
+                    },
+                );
                 ui.allocate_rect(ui.available_rect_before_wrap(), egui::Sense::hover());
             });
         egui::CentralPanel::default().show(cx, |ui| ui.label(self.text.as_str()));
