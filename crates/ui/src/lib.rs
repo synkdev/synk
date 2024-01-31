@@ -59,7 +59,6 @@ impl App for Ui {
             .resizable(true)
             .width_range(150.0..=400.0)
             .default_width(250.0)
-            // .show_separator_line(false)
             .show_animated(cx, true, |ui| {
                 ui.horizontal(|ui| ui.label("files"));
                 ui.allocate_rect(ui.available_rect_before_wrap(), egui::Sense::hover());
