@@ -57,11 +57,11 @@ impl App for Ui {
     fn update(&mut self, cx: &egui::Context, frame: &mut eframe::Frame) {
         egui::SidePanel::left("left_panel")
             .resizable(true)
-            .min_width(300.0)
-            .width_range(70.0..=350.0)
-            .show_separator_line(false)
+            .width_range(150.0..=400.0)
+            .default_width(250.0)
+            // .show_separator_line(false)
             .show_animated(cx, true, |ui| {
-                // ui.label("sidepanesdfasfasasasdl");
+                ui.horizontal(|ui| ui.label("files"));
                 ui.allocate_rect(ui.available_rect_before_wrap(), egui::Sense::hover());
             });
         egui::CentralPanel::default().show(cx, |ui| ui.label(self.text.as_str()));

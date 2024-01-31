@@ -1,6 +1,9 @@
 use egui::epaint;
 use egui::style;
+use egui::style::WidgetVisuals;
+use egui::style::Widgets;
 use egui::Color32;
+use egui::Stroke;
 
 // Most of the stuff here is from Catppuccin.
 
@@ -97,6 +100,79 @@ impl Theme {
                 ..Default::default()
             },
             dark_mode: true,
+            widgets: Widgets {
+                hovered: WidgetVisuals {
+                    bg_fill: self.base,
+                    rounding: 10.0.into(),
+                    bg_stroke: Stroke {
+                        color: self.overlay0,
+                        width: 1.0,
+                    },
+                    fg_stroke: Stroke {
+                        color: self.overlay0,
+                        width: 1.0,
+                    },
+                    weak_bg_fill: self.base,
+                    expansion: 0.0,
+                },
+                inactive: WidgetVisuals {
+                    bg_fill: self.base,
+                    rounding: 10.0.into(),
+                    bg_stroke: Stroke {
+                        color: self.red,
+                        width: 1.0,
+                    },
+                    fg_stroke: Stroke {
+                        color: self.red,
+                        width: 1.0,
+                    },
+                    weak_bg_fill: self.base,
+                    expansion: 0.0,
+                },
+                active: WidgetVisuals {
+                    bg_fill: self.base,
+                    rounding: 10.0.into(),
+                    bg_stroke: Stroke {
+                        color: self.red,
+                        width: 1.0,
+                    },
+                    fg_stroke: Stroke {
+                        color: self.red,
+                        width: 1.0,
+                    },
+                    weak_bg_fill: self.base,
+                    expansion: 0.0,
+                },
+                // This is the one for the default resize handle fill
+                noninteractive: WidgetVisuals {
+                    bg_fill: self.base,
+                    rounding: 10.0.into(),
+                    bg_stroke: Stroke {
+                        color: self.surface0,
+                        width: 1.0,
+                    },
+                    fg_stroke: Stroke {
+                        color: self.surface0,
+                        width: 1.0,
+                    },
+                    weak_bg_fill: self.base,
+                    expansion: 0.0,
+                },
+                open: WidgetVisuals {
+                    bg_fill: self.base,
+                    rounding: 10.0.into(),
+                    bg_stroke: Stroke {
+                        color: self.blue,
+                        width: 1.0,
+                    },
+                    fg_stroke: Stroke {
+                        color: self.blue,
+                        width: 1.0,
+                    },
+                    weak_bg_fill: self.base,
+                    expansion: 0.0,
+                },
+            },
             ..Default::default()
         }
     }
