@@ -26,7 +26,7 @@ impl Color {
                 let hex = hex.strip_prefix("#").unwrap_or(hex);
 
                 if hex.len() != 6 && hex.len() != 3 && hex.len() != 8 {
-                    return Err(anyhow::anyhow!("Invalid length for hex color. Must be 3, 6 or 8 characters long (excluding the # symbol if any)"));
+                    return Err(anyhow::anyhow!("Invalid length for hex String. Must be 3, 6 or 8 characters long (excluding the # symbol if any)"));
                 } else if hex.len() == 3 {
                     let red =
                         u8::from_str_radix(&format!("{}{}", &hex[0..1], &hex[0..1]), 16).unwrap();
@@ -62,47 +62,48 @@ impl Color {
 }
 
 pub struct Colors {
-    pub background: Color,
-    pub foreground: Color,
+    pub background: String,
+    pub foreground: String,
     pub line_numbers: LineNumberColors,
     pub sidebar: SidebarColors,
 }
 
 pub struct LineNumberColors {
-    pub line_numbers_bg: Color,
-    pub line_numbers_fg: Color,
-    pub line_numbers_edited_fg: Color,
-    pub line_numbers_deleted_fg: Color,
-    pub line_numbers_added_fg: Color,
+    pub line_numbers_bg: String,
+    pub line_numbers_fg: String,
+    pub line_numbers_edited_fg: String,
+    pub line_numbers_deleted_fg: String,
+    pub line_numbers_added_fg: String,
 }
 
 pub struct SidebarColors {
-    pub background: Color,
-    pub foreground: Color,
-    pub tab_bar_bg: Color,
-    pub tab_fg: Color,
-    pub tab_bg: Color,
+    pub background: String,
+    pub foreground: String,
+    pub tab_bar_bg: String,
+    pub tab_fg: String,
+    pub tab_bg: String,
 }
 
 impl Colors {
     pub fn new() -> Self {
         Colors {
-            background: Color::Hex("#1e1d2d"),
-            foreground: Color::Hex("#cdd6f4"),
+            background: Color::Hex("#1e1d2d").into().unwrap(),
+            foreground: Color::Hex("#cdd6f4").into().unwrap(),
             line_numbers: LineNumberColors {
-                line_numbers_bg: Color::Hex("#1e1d2d"),
-                line_numbers_fg: Color::Hex("#6c7086"),
-                line_numbers_added_fg: Color::Hex("#a6e3a1"),
-                line_numbers_edited_fg: Color::Hex("#f9e2af"),
-                line_numbers_deleted_fg: Color::Hex("#f38ba8"),
+                line_numbers_bg: Color::Hex("#1e1d2d").into().unwrap(),
+                line_numbers_fg: Color::Hex("#6c7086").into().unwrap(),
+                line_numbers_added_fg: Color::Hex("#a6e3a1").into().unwrap(),
+                line_numbers_edited_fg: Color::Hex("#f9e2af").into().unwrap(),
+                line_numbers_deleted_fg: Color::Hex("#f38ba8").into().unwrap(),
             },
             sidebar: SidebarColors {
-                background: Color::Hex("#1e1d2d"),
-                foreground: Color::Hex("#cdd6f4"),
-                tab_fg: Color::Hex("#cdd6f4"),
-                tab_bar_bg: Color::Hex("#1e1d2d"),
-                tab_bg: Color::Hex("#1e1d2d"),
+                background: Color::Hex("#1e1d2d").into().unwrap(),
+                foreground: Color::Hex("#cdd6f4").into().unwrap(),
+                tab_fg: Color::Hex("#cdd6f4").into().unwrap(),
+                tab_bar_bg: Color::Hex("#1e1d2d").into().unwrap(),
+                tab_bg: Color::Hex("#1e1d2d").into().unwrap(),
             },
         }
     }
+    pub fn into(&self) {}
 }
