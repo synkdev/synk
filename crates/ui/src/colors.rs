@@ -61,15 +61,25 @@ impl Color {
 }
 
 pub struct Colors {
-    background: Color,
-    foreground: Color,
-    editor_bg: Color,
+    pub background: Color,
+    pub foreground: Color,
+    pub line_numbers: LineNumberColors,
+    pub sidebar: SidebarColors,
 }
 
 pub struct LineNumberColors {
-    line_numbers_bg: Color,
-    line_numbers_fg: Color,
-    line_numbers_edited_fg: Color,
-    line_numbers_deleted_fg: Color,
-    line_numbers_added_fg: Color,
+    pub line_numbers_bg: Color,
+    pub line_numbers_fg: Color,
+    pub line_numbers_edited_fg: Color,
+    pub line_numbers_deleted_fg: Color,
+    pub line_numbers_added_fg: Color,
+}
+
+pub struct SidebarColors {
+    pub background: Color,
+    pub foreground: Color,
+    pub tab_bar_bg: Color,
+    pub tab_bar_fg: Color,
+    pub tab_fg: Color,
+    pub tab_bg: Color,
 }
