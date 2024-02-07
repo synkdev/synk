@@ -13,6 +13,7 @@ pub fn SynkUI() -> Element {
             height: "100%",
             direction: "vertical",
             background: "{colors.background}",
+            color: "{colors.foreground",
             main_align: "center",
             cross_align: "center",
             label { "hello" }
