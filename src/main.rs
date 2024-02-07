@@ -1,13 +1,12 @@
 use freya::prelude::*;
-use winit::{dpi::LogicalSize, window::WindowBuilder};
+use winit::dpi::LogicalSize;
 
 #[allow(dead_code)]
 const APP_ID: &'static str = "synk";
 
 fn main() {
-    let builder_hook: WindowBuilderHook = Box::new(|builder| {
-        #[allow(unused_mut)]
-        let mut window_builder = WindowBuilder::new()
+    let builder_hook: WindowBuilderHook = Box::new(|mut builder| {
+        builder = builder
             .with_inner_size(LogicalSize::new(1200, 700))
             .with_active(true)
             .with_visible(true)
@@ -18,17 +17,16 @@ fn main() {
         #[cfg(feature = "wayland")]
         {
             use winit::platform::wayland::WindowBuilderExtWayland as _;
-            window_builder = window_builder.with_name(APP_ID, "");
+            builder = builder.with_name(APP_ID, "");
         }
 
         #[allow(dead_code)]
         #[cfg(feature = "x11")]
         {
             use winit::platform::x11::WindowBuilderExtX11 as _;
-            window_builder = window_builder.with_name(APP_ID, "");
+            builder = builder.with_name(APP_ID, "");
         }
-
-        *builder = window_builder;
+        builder
     });
 
     launch_cfg(
