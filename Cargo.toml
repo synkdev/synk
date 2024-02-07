@@ -5,6 +5,10 @@ name = "synk"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+wayland = []
+x11 = []
+
 [dependencies]
 ui = { path = "crates/ui" }
 core = { path = "crates/core" }
