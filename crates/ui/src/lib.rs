@@ -1,3 +1,5 @@
+pub mod colors;
+
 use freya::prelude::*;
 
 pub struct SynkUI;
