@@ -59,3 +59,17 @@ impl Color {
         }
     }
 }
+
+pub struct Colors {
+    background: Color,
+    foreground: Color,
+    editor_bg: Color,
+}
+
+pub struct LineNumberColors {
+    line_numbers_bg: Color,
+    line_numbers_fg: Color,
+    line_numbers_edited_fg: Color,
+    line_numbers_deleted_fg: Color,
+    line_numbers_added_fg: Color,
+}
