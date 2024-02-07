@@ -3,7 +3,8 @@ pub mod colors;
 use colors::Colors;
 use freya::prelude::*;
 
-pub fn render_ui() -> Element {
+#[allow(non_snake_case)]
+pub fn SynkUI() -> Element {
     let colors = Colors::new();
     println!("{0}", colors.background);
     rsx! {
