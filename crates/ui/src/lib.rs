@@ -6,7 +6,7 @@ pub struct SynkUI;
 
 impl SynkUI {
     pub fn render() -> Element {
-        let color = "rgb(10, 20, 10)";
+        let color = "rgb(10, 20, 10)".to_string();
         rsx! {
             rect {
                 width: "100%",
