@@ -1,11 +1,19 @@
 pub mod colors;
 
+use colors::Colors;
 use freya::prelude::*;
 
-pub struct SynkUI;
+pub struct SynkUI {
+    pub colors: Colors,
+}
 
 impl SynkUI {
-    pub fn render() -> Element {
+    pub fn new() -> SynkUI {
+        SynkUI {
+            colors: Colors::new(),
+        }
+    }
+    pub fn render(&self) -> Element {
         let color = "rgb(10, 20, 10)".to_string();
         rsx! {
             rect {
