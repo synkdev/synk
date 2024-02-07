@@ -5,10 +5,12 @@ name = "synk"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 ui = { path = "crates/ui" }
 core = { path = "crates/core" }
 anyhow = "1.0.79"
-dioxus = { git = "https://github.com/dioxuslabs/dioxus", branch = "master" }
+freya = { git = "https://github.com/marc2332/freya", branch = "main" }
+dioxus = { git = "https://github.com/dioxuslabs/dioxus", branch = "master", features = [
+	"macro",
+	"hooks",
+], default-features = false }
