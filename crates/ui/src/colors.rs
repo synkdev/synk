@@ -1,5 +1,4 @@
 use anyhow::Result;
-use freya::dioxus::events::HeadExtension;
 
 #[derive(Clone)]
 pub enum Color {
