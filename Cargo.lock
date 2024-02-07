@@ -3980,6 +3980,7 @@ dependencies = [
  "dioxus 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
  "freya",
  "ui",
+ "winit",
 ]
 
 [[package]]

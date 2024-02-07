@@ -14,3 +14,4 @@ dioxus = { git = "https://github.com/dioxuslabs/dioxus", branch = "master", feat
 	"macro",
 	"hooks",
 ], default-features = false }
+winit = "0.29.10"
