@@ -1,4 +1,5 @@
 use anyhow::Result;
+use freya::dioxus::events::HeadExtension;
 
 #[derive(Clone)]
 pub enum Color {
@@ -79,7 +80,29 @@ pub struct SidebarColors {
     pub background: Color,
     pub foreground: Color,
     pub tab_bar_bg: Color,
-    pub tab_bar_fg: Color,
     pub tab_fg: Color,
     pub tab_bg: Color,
+}
+
+impl Colors {
+    pub fn new() -> Self {
+        Colors {
+            background: Color::Hex("#1e1d2d"),
+            foreground: Color::Hex("#cdd6f4"),
+            line_numbers: LineNumberColors {
+                line_numbers_bg: Color::Hex("#1e1d2d"),
+                line_numbers_fg: Color::Hex("#6c7086"),
+                line_numbers_added_fg: Color::Hex("#a6e3a1"),
+                line_numbers_edited_fg: Color::Hex("#f9e2af"),
+                line_numbers_deleted_fg: Color::Hex("#f38ba8"),
+            },
+            sidebar: SidebarColors {
+                background: Color::Hex("#1e1d2d"),
+                foreground: Color::Hex("#cdd6f4"),
+                tab_fg: Color::Hex("#cdd6f4"),
+                tab_bar_bg: Color::Hex("#1e1d2d"),
+                tab_bg: Color::Hex("#1e1d2d"),
+            },
+        }
+    }
 }
