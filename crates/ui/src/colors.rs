@@ -60,6 +60,7 @@ impl Color {
     }
 }
 
+#[derive(Clone, PartialEq)]
 pub struct Colors {
     pub background: String,
     pub foreground: String,
@@ -67,6 +68,7 @@ pub struct Colors {
     pub sidebar: SidebarColors,
 }
 
+#[derive(Clone, PartialEq)]
 pub struct LineNumberColors {
     pub line_numbers_bg: String,
     pub line_numbers_fg: String,
@@ -75,6 +77,7 @@ pub struct LineNumberColors {
     pub line_numbers_added_fg: String,
 }
 
+#[derive(Clone, PartialEq)]
 pub struct SidebarColors {
     pub background: String,
     pub foreground: String,
