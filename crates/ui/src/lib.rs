@@ -31,12 +31,12 @@ pub fn SynkUI() -> Element {
             font_family: "JetBrains Mono",
             overflow: "clip",
             Sidebar { width: sidebar_width, colors: colors.sidebar }
-            VerticalSeparator {}
+            VerticalSeparator { colors: colors.separator.clone(), interactive: true }
             rect { width: "100%", height: "100%", direction: "vertical",
                 TabBar { colors: colors.tab_bar }
-                HorizontalSeparator {}
+                HorizontalSeparator { colors: colors.separator.clone(), interactive: false }
                 Statusbar { colors: colors.statusbar }
-                HorizontalSeparator {}
+                HorizontalSeparator { colors: colors.separator.clone(), interactive: false }
             }
         }
     }
