@@ -8,7 +8,11 @@ pub mod tab_bar;
 use colors::Colors;
 use freya::prelude::*;
 
-use crate::{separator::VerticalSeparator, sidebar::Sidebar};
+use crate::{
+    separator::{HorizontalSeparator, VerticalSeparator},
+    sidebar::Sidebar,
+    statusbar::Statusbar,
+};
 
 #[allow(non_snake_case)]
 pub fn SynkUI() -> Element {
@@ -24,8 +28,13 @@ pub fn SynkUI() -> Element {
             color: "{colors.foreground}",
             cross_align: "center",
             font_family: "JetBrains Mono",
+            overflow: "clip",
             Sidebar { width: sidebar_width, colors: colors.sidebar }
             VerticalSeparator {}
+            rect { width: "100%", height: "100%", direction: "vertical",
+                HorizontalSeparator {}
+                Statusbar { colors: colors.statusbar }
+            }
         }
     }
 }
