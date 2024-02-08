@@ -8,7 +8,7 @@ const JETBRAINS_MONO: &[u8] = include_bytes!("../resources/fonts/jetbrains_mono.
 fn main() {
     let builder_hook: WindowBuilderHook = Box::new(|mut builder| {
         builder = builder
-            .with_inner_size(LogicalSize::new(1200, 700))
+            .with_inner_size(LogicalSize::new(1400, 800))
             .with_active(true)
             .with_visible(true)
             .with_resizable(true)
