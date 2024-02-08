@@ -2,12 +2,10 @@ pub mod colors;
 pub mod separator;
 pub mod sidebar;
 
-use std::ops::Add;
-
 use colors::Colors;
 use freya::prelude::*;
 
-use crate::sidebar::Sidebar;
+use crate::{separator::VerticalSeparator, sidebar::Sidebar};
 
 #[allow(non_snake_case)]
 pub fn SynkUI() -> Element {
@@ -24,6 +22,7 @@ pub fn SynkUI() -> Element {
             cross_align: "center",
             font_family: "JetBrains Mono",
             Sidebar { width: sidebar_width, colors: colors.sidebar }
+            VerticalSeparator { colors: colors.separator }
             label {
                 font_weight: "bold",
                 font_style: "italic",
