@@ -6,6 +6,6 @@ use crate::colors::SidebarColors;
 #[component]
 pub fn Sidebar(colors: SidebarColors, width: Signal<usize>) -> Element {
     rsx! {
-        rect { width: "{width.read()}", height: "100%", background: "rgb(49, 50, 68)", label { "hello" } }
+        rect { width: "{width.read()}", height: "100%", background: "{colors.background}", label { "hello" } }
     }
 }
