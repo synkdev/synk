@@ -67,6 +67,7 @@ pub struct Colors {
     pub line_numbers: LineNumberColors,
     pub sidebar: SidebarColors,
     pub separator: SeparatorColors,
+    pub statusbar: StatusbarColors,
 }
 
 #[derive(Clone, PartialEq)]
@@ -93,6 +94,12 @@ pub struct SeparatorColors {
     pub active: String,
 }
 
+#[derive(Clone, PartialEq)]
+pub struct StatusbarColors {
+    pub background: String,
+    pub foreground: String,
+}
+
 impl Colors {
     pub fn new() -> Self {
         Colors {
@@ -115,6 +122,10 @@ impl Colors {
             separator: SeparatorColors {
                 default: Color::Hex("#45475a").into().unwrap(),
                 active: Color::Hex("#9399b2").into().unwrap(),
+            },
+            statusbar: StatusbarColors {
+                background: Color::Hex("#1e1d2d").into().unwrap(),
+                foreground: Color::Hex("#cdd6f4").into().unwrap(),
             },
         }
     }

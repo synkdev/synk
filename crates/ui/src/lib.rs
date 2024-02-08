@@ -1,6 +1,9 @@
 pub mod colors;
+pub mod editor;
 pub mod separator;
 pub mod sidebar;
+pub mod statusbar;
+pub mod tab_bar;
 
 use colors::Colors;
 use freya::prelude::*;
