@@ -1,29 +1,24 @@
 use freya::prelude::*;
 
-use crate::colors::SeparatorColors;
-
 #[allow(non_snake_case)]
 #[component]
-pub fn VerticalSeparator(colors: SeparatorColors) -> Element {
+pub fn VerticalSeparator() -> Element {
     let mut width = use_signal(|| 2);
-    // let active = colors.active.as_str();
-    // let default = colors.default.as_str();
-    let mut background = use_signal(|| "{colors.default}");
+    let mut background = use_signal(|| "rgb(69, 71, 90)");
 
     rsx! {
         rect {
             height: "100%",
             width: "{width.read()}",
-            background: "{background}",
+            background: "{background.read()}",
             onmouseover: move |_| {
-                background.set("{colors.active}");
+                background.set("rgb(147, 153, 178)");
                 width.set(6);
             },
             onmouseleave: move |_| {
-                background.set("{colors.default}");
+                background.set("rgb(69, 71, 90)");
                 width.set(2);
-            },
-            label { "{background.read()}" }
+            }
         }
     }
 }

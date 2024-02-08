@@ -22,7 +22,7 @@ pub fn SynkUI() -> Element {
             cross_align: "center",
             font_family: "JetBrains Mono",
             Sidebar { width: sidebar_width, colors: colors.sidebar }
-            VerticalSeparator { colors: colors.separator }
+            VerticalSeparator {}
             label {
                 font_weight: "bold",
                 font_style: "italic",
