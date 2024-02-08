@@ -36,6 +36,7 @@ pub fn SynkUI() -> Element {
                 TabBar { colors: colors.tab_bar }
                 HorizontalSeparator {}
                 Statusbar { colors: colors.statusbar }
+                HorizontalSeparator {}
             }
         }
     }
