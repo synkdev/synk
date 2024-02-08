@@ -66,6 +66,7 @@ pub struct Colors {
     pub foreground: String,
     pub line_numbers: LineNumberColors,
     pub sidebar: SidebarColors,
+    pub separator: SeparatorColors,
 }
 
 #[derive(Clone, PartialEq)]
@@ -86,6 +87,12 @@ pub struct SidebarColors {
     pub tab_bg: String,
 }
 
+#[derive(Clone, PartialEq)]
+pub struct SeparatorColors {
+    pub default: String,
+    pub active: String,
+}
+
 impl Colors {
     pub fn new() -> Self {
         Colors {
@@ -104,6 +111,10 @@ impl Colors {
                 tab_fg: Color::Hex("#cdd6f4").into().unwrap(),
                 tab_bar_bg: Color::Hex("#1e1d2d").into().unwrap(),
                 tab_bg: Color::Hex("#1e1d2d").into().unwrap(),
+            },
+            separator: SeparatorColors {
+                default: Color::Hex("#45475a").into().unwrap(),
+                active: Color::Hex("#9399b2").into().unwrap(),
             },
         }
     }

@@ -1,4 +1,5 @@
 pub mod colors;
+pub mod separator;
 pub mod sidebar;
 
 use std::ops::Add;
