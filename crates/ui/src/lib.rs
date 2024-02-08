@@ -13,10 +13,13 @@ pub fn SynkUI() -> Element {
             height: "100%",
             direction: "vertical",
             background: "{colors.background}",
-            color: "{colors.foreground",
+            color: "{colors.foreground}",
             main_align: "center",
             cross_align: "center",
-            label { "hello" }
+            font_family: "JetBrains Mono",
+            label { font_weight: "bold", font_style: "italic", "hello" }
+            label { font_weight: "thin", "hello" }
+            label { font_style: "italic", "hello" }
         }
     }
 }

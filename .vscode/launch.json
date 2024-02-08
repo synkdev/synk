@@ -12,7 +12,8 @@
                 "args": [
                     "build",
                     "--bin=synk",
-                    "--package=synk"
+                    "--package=synk",
+                    "--features=wayland"
                 ],
                 "filter": {
                     "name": "synk",

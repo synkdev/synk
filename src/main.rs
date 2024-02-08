@@ -3,6 +3,7 @@ use winit::dpi::LogicalSize;
 
 #[allow(dead_code)]
 const APP_ID: &'static str = "synk";
+const JETBRAINS_MONO: &[u8] = include_bytes!("../resources/fonts/jetbrains_mono.ttf");
 
 fn main() {
     let builder_hook: WindowBuilderHook = Box::new(|mut builder| {
@@ -32,6 +33,7 @@ fn main() {
     launch_cfg(
         ui::SynkUI,
         LaunchConfig::<()>::builder()
+            .with_font("JetBrains Mono", JETBRAINS_MONO)
             .with_window_builder(builder_hook)
             .build(),
     );
