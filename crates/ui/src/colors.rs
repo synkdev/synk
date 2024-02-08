@@ -113,6 +113,8 @@ pub struct TabBarColors {
     pub bar_bg: String,
     pub tab_bg: String,
     pub tab_fg: String,
+    pub active: String,
+    pub inactive: String,
 }
 
 impl Colors {
@@ -150,6 +152,8 @@ impl Colors {
                 bar_bg: Color::Hex("#1e1d2d").into().unwrap(),
                 tab_bg: Color::Hex("#1e1d2d").into().unwrap(),
                 tab_fg: Color::Hex("#cdd6f4").into().unwrap(),
+                active: Color::Hex("#fab387").into().unwrap(),
+                inactive: Color::Hex("#a6e3a1").into().unwrap(),
             },
         }
     }
