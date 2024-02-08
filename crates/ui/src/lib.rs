@@ -1,4 +1,5 @@
 pub mod colors;
+pub mod sidebar;
 
 use colors::Colors;
 use freya::prelude::*;
