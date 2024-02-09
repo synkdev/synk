@@ -32,7 +32,7 @@ pub fn SynkUI() -> Element {
             font_family: "JetBrains Mono",
             overflow: "clip",
             Sidebar { width: sidebar_width, colors: colors.sidebar }
-            VerticalSeparator { colors: colors.separator.clone(), interactive: true }
+            VerticalSeparator { colors: colors.separator.clone(), interactive: true, callback: sidebar_width }
             rect { width: "100%", height: "100%", direction: "vertical",
                 TabBar { colors: colors.tab_bar }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false }
