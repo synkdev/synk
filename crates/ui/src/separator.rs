@@ -15,7 +15,7 @@ pub fn VerticalSeparator(
             use_animation_transition(TransitionAnimation::SineInOut(150), (), move |_| {
                 vec![
                     Transition::new_color(colors.default.as_str(), colors.active.as_str()),
-                    Transition::new_size(2.0, 6.0),
+                    Transition::new_size(1.0, 6.0),
                 ]
             });
 
@@ -64,7 +64,7 @@ pub fn VerticalSeparator(
             }
         }
     } else {
-        rsx! { rect { height: "100%", width: "2", background: "{colors.default}" } }
+        rsx! { rect { height: "100%", width: "1", background: "{colors.default}" } }
     }
 }
 
@@ -81,7 +81,7 @@ pub fn HorizontalSeparator(
             use_animation_transition(TransitionAnimation::SineInOut(150), (), move |_| {
                 vec![
                     Transition::new_color(colors.default.as_str(), colors.active.as_str()),
-                    Transition::new_size(2.0, 6.0),
+                    Transition::new_size(1.0, 6.0),
                 ]
             });
 
@@ -130,6 +130,6 @@ pub fn HorizontalSeparator(
             }
         }
     } else {
-        rsx! { rect { width: "100%", height: "2", background: "{colors.default}" } }
+        rsx! { rect { width: "100%", height: "1", background: "{colors.default}" } }
     }
 }
