@@ -29,9 +29,8 @@ pub fn VerticalSeparator(
             to_owned![hover_anim];
             move |_: MouseEvent| {
                 hover_anim.reverse();
-                if !(*clicking.read()) {
-                    hovering.set(false);
-                }
+                hovering.set(false);
+                clicking.set(false);
             }
         };
 
@@ -44,10 +43,10 @@ pub fn VerticalSeparator(
                     let x = e.get_screen_coordinates().x as usize;
                     println!("{}", clicking.read());
                     if let Some(mut callback) = callback {
-                        let delta = x - *position.read();
-                        let extend_size = *callback.clone().read() + delta;
+                        let extend_size = x.saturating_sub(*position.read());
                         println!("{extend_size}");
-                        *callback.write() += extend_size
+                        *callback.write() += extend_size;
+                        position.set(e.get_screen_coordinates().x as usize);
                     }
                 }
             }
