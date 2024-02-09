@@ -19,7 +19,7 @@ use crate::{
 #[allow(non_snake_case)]
 pub fn SynkUI() -> Element {
     let colors = Colors::new();
-    let sidebar_width = use_signal(|| 300_usize);
+    let sidebar_width = use_signal(|| 300_isize);
 
     rsx! {
         rect {

@@ -1,4 +1,4 @@
-use freya::{dioxus::html::del, prelude::*};
+use freya::prelude::*;
 
 use crate::colors::SeparatorColors;
 
@@ -7,7 +7,7 @@ use crate::colors::SeparatorColors;
 pub fn VerticalSeparator(
     colors: SeparatorColors,
     interactive: bool,
-    mut callback: Option<Signal<usize>>,
+    mut callback: Option<Signal<isize>>,
 ) -> Element {
     if interactive {
         let hover_anim =
@@ -40,14 +40,10 @@ pub fn VerticalSeparator(
                 hover_anim.start();
                 is_hovered.set(true);
                 if *is_clicked.read() {
-                    let x = e.get_screen_coordinates().x as usize;
+                    let x = e.get_screen_coordinates().x as isize;
                     if let Some(mut callback) = callback {
-                        let extend_size = x.saturating_sub(*position.read());
-                        if extend_size == 0 {
-                            *callback.write() -= 1;
-                        } else {
-                            *callback.write() += 1;
-                        }
+                        let extend_size = x.saturating_sub(*position.read() as isize);
+                        *callback.write() += extend_size;
                         position.set(e.get_screen_coordinates().x as usize);
                     }
                 }
@@ -65,7 +61,7 @@ pub fn VerticalSeparator(
 
         rsx! {
             rect {
-                width: "10",
+                width: "12",
                 height: "100%",
                 onmouseover: onmouseover,
                 onmouseleave: onmouseleave,
@@ -143,7 +139,7 @@ pub fn HorizontalSeparator(
 
         rsx! {
             rect {
-                width: "10",
+                width: "12",
                 height: "100%",
                 onmouseover: onmouseover,
                 onmouseleave: onmouseleave,
