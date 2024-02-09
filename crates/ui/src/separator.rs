@@ -7,6 +7,7 @@ use crate::colors::SeparatorColors;
 pub fn VerticalSeparator(
     colors: SeparatorColors,
     interactive: bool,
+    reverse: bool,
     mut callback: Option<Signal<isize>>,
 ) -> Element {
     if interactive {
@@ -21,55 +22,47 @@ pub fn VerticalSeparator(
         let color = hover_anim.get(0).unwrap().as_color();
         let width = hover_anim.get(1).unwrap().as_size();
 
-        let mut is_hovered = use_signal(|| false);
         let mut position = use_signal(|| 0usize);
-        let mut is_clicked = use_signal(|| false);
+        let mut is_clicked = use_signal::<Option<CursorPoint>>(|| None);
 
-        let onmouseleave = {
-            to_owned![hover_anim];
-            move |_: MouseEvent| {
-                hover_anim.reverse();
-                is_hovered.set(false);
-                is_clicked.set(false);
-            }
-        };
-
-        let onmouseover = {
-            to_owned![hover_anim];
-            move |e: MouseEvent| {
-                hover_anim.start();
-                is_hovered.set(true);
-                if *is_clicked.read() {
-                    let x = e.get_screen_coordinates().x as isize;
-                    if let Some(mut callback) = callback {
-                        let extend_size = x.saturating_sub(*position.read() as isize);
-                        *callback.write() += extend_size;
-                        position.set(e.get_screen_coordinates().x as usize);
-                    }
+        let onglobalmouseover = move |e: MouseEvent| {
+            if let Some(clicked) = *is_clicked.read() {
+                if let Some(mut callback) = callback {
+                    let x = e.get_screen_coordinates().x;
+                    let extend_size = (x - clicked.x) as isize;
+                    println!("{extend_size}");
+                    *callback.write() = extend_size;
+                    position.set(e.get_screen_coordinates().x as usize);
                 }
             }
         };
 
         let onmousedown = move |e: MouseEvent| {
-            position.set(e.get_screen_coordinates().x as usize);
-            is_clicked.set(true);
+            is_clicked.set(Some(e.get_element_coordinates()));
         };
 
-        let onclick = move |_: MouseEvent| {
-            is_clicked.set(false);
+        let onglobalclick = move |_: MouseEvent| {
+            is_clicked.set(None);
         };
 
         rsx! {
             rect {
                 width: "12",
                 height: "100%",
-                onmouseover: onmouseover,
-                onmouseleave: onmouseleave,
-                onclick: onclick,
-                onmousedown: onmousedown,
+                onglobalmouseover,
+                onglobalclick,
+                onmousedown,
+                onmouseover: {to_owned![hover_anim]; move |_| {hover_anim.start()}},
+                onmouseleave: {to_owned![hover_anim]; move |_| {hover_anim.reverse()}},
                 direction: "horizontal",
-                rect { height: "100%", width: "calc(100% - {width})" }
-                rect { height: "100%", width: "{width}", background: "{color}" }
+                if reverse {
+                    rect { height: "100%", width: "{width}", background: "{color}" }
+                    rect { height: "100%", width: "calc(100% - {width})" }
+                } else {
+                    rect { height: "100%", width: "calc(100% - {width})" }
+                    rect { height: "100%", width: "{width}", background: "{color}" }
+                }
+
             }
         }
     } else {
