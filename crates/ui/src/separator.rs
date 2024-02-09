@@ -28,8 +28,7 @@ pub fn VerticalSeparator(
         let onglobalmouseover = move |e: MouseEvent| {
             if let Some(clicked) = *is_clicked.read() {
                 if let Some(mut callback) = callback {
-                    let x = e.get_screen_coordinates().x;
-                    let extend_size = (x - clicked.x) as isize;
+                    let extend_size = (e.get_screen_coordinates().x - clicked.x) as isize;
                     *callback.write() = extend_size;
                     position.set(e.get_screen_coordinates().x as usize);
                 }
@@ -95,8 +94,7 @@ pub fn HorizontalSeparator(
         let onglobalmouseover = move |e: MouseEvent| {
             if let Some(clicked) = *is_clicked.read() {
                 if let Some(mut callback) = callback {
-                    let x = e.get_screen_coordinates().x;
-                    let extend_size = (x - clicked.x) as isize;
+                    let extend_size = (e.get_screen_coordinates().x - clicked.x) as isize;
                     *callback.write() = extend_size;
                     position.set(e.get_screen_coordinates().x as usize);
                 }
