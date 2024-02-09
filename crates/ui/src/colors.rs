@@ -138,7 +138,7 @@ impl Colors {
             },
             separator: SeparatorColors {
                 default: Color::Hex("#45475a").into().unwrap(),
-                active: Color::Hex("#9399b2").into().unwrap(),
+                active: Color::Hex("#f38ba8").into().unwrap(),
             },
             statusbar: StatusbarColors {
                 background: Color::Hex("#1e1d2d").into().unwrap(),
