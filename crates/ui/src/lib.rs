@@ -40,9 +40,9 @@ pub fn SynkUI() -> Element {
             }
             rect { width: "100%", height: "100%", direction: "vertical",
                 TabBar { colors: colors.tab_bar }
-                HorizontalSeparator { colors: colors.separator.clone(), interactive: false }
+                HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
                 Editor { colors: colors.editor.clone() }
-                HorizontalSeparator { colors: colors.separator.clone(), interactive: false }
+                HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
                 Statusbar { colors: colors.statusbar }
             }
         }
