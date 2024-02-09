@@ -14,7 +14,7 @@ pub fn VerticalSeparator(
             use_animation_transition(TransitionAnimation::SineInOut(150), (), move |_| {
                 vec![
                     Transition::new_color(colors.default.as_str(), colors.active.as_str()),
-                    Transition::new_size(6.0, 6.0),
+                    Transition::new_size(2.0, 6.0),
                 ]
             });
 
@@ -41,11 +41,13 @@ pub fn VerticalSeparator(
                 hovering.set(true);
                 if *clicking.read() {
                     let x = e.get_screen_coordinates().x as usize;
-                    println!("{}", clicking.read());
                     if let Some(mut callback) = callback {
                         let extend_size = x.saturating_sub(*position.read());
-                        println!("{extend_size}");
-                        *callback.write() += extend_size;
+                        if extend_size == 0 {
+                            *callback.write() -= 1;
+                        } else {
+                            *callback.write() += 1;
+                        }
                         position.set(e.get_screen_coordinates().x as usize);
                     }
                 }
@@ -63,13 +65,15 @@ pub fn VerticalSeparator(
 
         rsx! {
             rect {
+                width: "10",
                 height: "100%",
-                width: "{width}",
-                background: "{color}",
                 onmouseover: onmouseover,
                 onmouseleave: onmouseleave,
                 onclick: onclick,
-                onmousedown: onmousedown
+                onmousedown: onmousedown,
+                direction: "horizontal",
+                rect { height: "100%", width: "calc(100% - {width})" }
+                rect { height: "100%", width: "{width}", background: "{color}" }
             }
         }
     } else {
