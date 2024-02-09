@@ -30,7 +30,6 @@ pub fn VerticalSeparator(
                 if let Some(mut callback) = callback {
                     let x = e.get_screen_coordinates().x;
                     let extend_size = (x - clicked.x) as isize;
-                    println!("{extend_size}");
                     *callback.write() = extend_size;
                     position.set(e.get_screen_coordinates().x as usize);
                 }
@@ -98,7 +97,6 @@ pub fn HorizontalSeparator(
                 if let Some(mut callback) = callback {
                     let x = e.get_screen_coordinates().x;
                     let extend_size = (x - clicked.x) as isize;
-                    println!("{extend_size}");
                     *callback.write() = extend_size;
                     position.set(e.get_screen_coordinates().x as usize);
                 }
