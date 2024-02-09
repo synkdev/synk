@@ -1,6 +1,4 @@
-use std::env::current_exe;
-
-use freya::prelude::*;
+use freya::{dioxus::html::del, prelude::*};
 
 use crate::colors::SeparatorColors;
 
@@ -16,7 +14,7 @@ pub fn VerticalSeparator(
             use_animation_transition(TransitionAnimation::SineInOut(150), (), move |_| {
                 vec![
                     Transition::new_color(colors.default.as_str(), colors.active.as_str()),
-                    Transition::new_size(2.0, 6.0),
+                    Transition::new_size(6.0, 6.0),
                 ]
             });
 
@@ -24,7 +22,7 @@ pub fn VerticalSeparator(
         let width = hover_anim.get(1).unwrap().as_size();
 
         let mut hovering = use_signal(|| false);
-        // let mut position = use_signal(|| 0.0f64);
+        let mut position = use_signal(|| 0usize);
         let mut clicking = use_signal(|| false);
 
         let onmouseleave = {
@@ -44,16 +42,19 @@ pub fn VerticalSeparator(
                 hovering.set(true);
                 if *clicking.read() {
                     let x = e.get_screen_coordinates().x as usize;
+                    println!("{}", clicking.read());
                     if let Some(mut callback) = callback {
-                        let current_size = callback.clone().read();
-                        let extend_size = x - *current_size;
-                        *callback.write() += extend_size;
+                        let delta = x - *position.read();
+                        let extend_size = *callback.clone().read() + delta;
+                        println!("{extend_size}");
+                        *callback.write() += extend_size
                     }
                 }
             }
         };
 
-        let onmousedown = move |_: MouseEvent| {
+        let onmousedown = move |e: MouseEvent| {
+            position.set(e.get_screen_coordinates().x as usize);
             clicking.set(true);
         };
 
