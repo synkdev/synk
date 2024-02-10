@@ -1,7 +1,5 @@
 pub mod document;
 
-use std::path::PathBuf;
-
 use document::Document;
 
 pub struct Core {
