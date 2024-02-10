@@ -19,7 +19,7 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
             rect { width: "calc(100% - 50)", height: "100%", direction: "vertical",
                 for (_ , line) in contents.lines().enumerate() {
                     rect {
-                        background: "rgb(49, 50, 68)",
+                        background: "{colors.editor.background}",
                         width: "100%",
                         height: "40",
                         direction: "horizontal",
@@ -27,7 +27,7 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
                         label {
                             font_family: "JetBrains Mono",
                             font_size: "16",
-                            color: "rgb(205, 214, 244)",
+                            color: "{colors.editor.foreground}",
                             "{line}"
                         }
                     }
