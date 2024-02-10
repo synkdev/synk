@@ -810,6 +810,9 @@ dependencies = [
 [[package]]
 name = "core"
 version = "0.1.0"
+dependencies = [
+ "crop",
+]
 
 [[package]]
 name = "core-foundation"
@@ -867,6 +870,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b540bd8bc810d3885c6ea91e2018302f68baba2129ab3e88f32389ee9370880d"
 dependencies = [
  "cfg-if",
+]
+
+[[package]]
+name = "crop"
+version = "0.4.2"
+source = "git+https://github.com/nomad/crop#8c10b8164b70fe384b14587a9954b408e127a7d0"
+dependencies = [
+ "str_indices",
 ]
 
 [[package]]
