@@ -1,8 +1,5 @@
-use std::{
-    fs::File,
-    io::Read,
-    path::{Path, PathBuf},
-};
+use fscx_rs::file::read_to_string;
+use std::path::PathBuf;
 
 use crop::Rope;
 
@@ -17,5 +14,10 @@ impl Document {
         }
     }
 
-    pub fn from_file(file: PathBuf) -> Self {}
+    pub fn from_file(file: PathBuf) -> Self {
+        let file = read_to_string(file).unwrap();
+        Document {
+            contents: Rope::from(file),
+        }
+    }
 }
