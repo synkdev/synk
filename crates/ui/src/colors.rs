@@ -120,7 +120,7 @@ pub struct TabBarColors {
 impl Colors {
     pub fn new() -> Self {
         Colors {
-            background: Color::Hex("#1e1d2d").into().unwrap(),
+            background: Color::Hex("#11111b").into().unwrap(),
             foreground: Color::Hex("#cdd6f4").into().unwrap(),
             line_numbers: LineNumberColors {
                 line_numbers_bg: Color::Hex("#1e1d2d").into().unwrap(),
@@ -141,7 +141,7 @@ impl Colors {
                 active: Color::Hex("#f38ba8").into().unwrap(),
             },
             statusbar: StatusbarColors {
-                background: Color::Hex("#1e1d2d").into().unwrap(),
+                background: Color::Hex("#11111b").into().unwrap(),
                 foreground: Color::Hex("#cdd6f4").into().unwrap(),
             },
             editor: EditorColors {
@@ -149,7 +149,7 @@ impl Colors {
                 foreground: Color::Hex("#cdd6f4").into().unwrap(),
             },
             tab_bar: TabBarColors {
-                bar_bg: Color::Hex("#1e1d2d").into().unwrap(),
+                bar_bg: Color::Hex("#11111b").into().unwrap(),
                 tab_bg: Color::Hex("#1e1d2d").into().unwrap(),
                 tab_fg: Color::Hex("#cdd6f4").into().unwrap(),
                 active: Color::Hex("#fab387").into().unwrap(),
