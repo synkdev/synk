@@ -1,5 +1,3 @@
-use core::Core;
-
 use freya::prelude::*;
 use winit::dpi::LogicalSize;
 
