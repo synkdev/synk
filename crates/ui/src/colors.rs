@@ -130,7 +130,7 @@ impl Colors {
                 line_numbers_deleted_fg: Color::Hex("#f38ba8").into().unwrap(),
             },
             sidebar: SidebarColors {
-                background: Color::Hex("#1e1d2d").into().unwrap(),
+                background: Color::Hex("#11111b").into().unwrap(),
                 foreground: Color::Hex("#cdd6f4").into().unwrap(),
                 tab_fg: Color::Hex("#cdd6f4").into().unwrap(),
                 tab_bar_bg: Color::Hex("#1e1d2d").into().unwrap(),
