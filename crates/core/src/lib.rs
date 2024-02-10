@@ -11,7 +11,12 @@ pub struct Core {
 impl Core {
     pub fn new() -> Self {
         Core {
-            documents: vec![Document::from_file(PathBuf::from("./document.rs"))],
+            documents: vec![Document::new(
+                "fn main() {
+    println!(\"Hello world!\");
+}"
+                .to_string(),
+            )],
         }
     }
 }

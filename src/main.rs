@@ -34,6 +34,11 @@ fn main() {
 
     let core = Core::new();
 
+    for document in core.documents {
+        for (no, line) in document.contents.lines().enumerate() {
+            println!("{}: {}", no, line);
+        }
+    }
     launch_cfg(
         ui::SynkUI,
         LaunchConfig::<()>::builder()
