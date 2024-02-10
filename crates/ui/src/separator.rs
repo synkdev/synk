@@ -1,4 +1,5 @@
 use freya::prelude::*;
+use winit::window::CursorIcon;
 
 use crate::colors::SeparatorColors;
 
@@ -11,13 +12,15 @@ pub fn VerticalSeparator(
     mut callback: Option<Signal<isize>>,
 ) -> Element {
     if interactive {
-        let hover_anim =
+        let mut hover_anim =
             use_animation_transition(TransitionAnimation::SineInOut(150), (), move |_| {
                 vec![
                     Transition::new_color(colors.default.as_str(), colors.active.as_str()),
                     Transition::new_size(1.0, 6.0),
                 ]
             });
+
+        let platform = use_platform();
 
         let color = hover_anim.get(0).unwrap().as_color();
         let width = hover_anim.get(1).unwrap().as_size();
@@ -50,8 +53,8 @@ pub fn VerticalSeparator(
                 onglobalmouseover,
                 onglobalclick,
                 onmousedown,
-                onmouseover: {to_owned![hover_anim]; move |_| {hover_anim.start()}},
-                onmouseleave: {to_owned![hover_anim]; move |_| {hover_anim.reverse()}},
+                onmouseover: move |_| {hover_anim.start()},
+                onmouseleave: move |_| {hover_anim.reverse()},
                 direction: "horizontal",
                 if reverse {
                     rect { height: "100%", width: "{width}", background: "{color}" }
