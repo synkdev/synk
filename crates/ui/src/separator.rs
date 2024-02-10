@@ -40,9 +40,11 @@ pub fn VerticalSeparator(
 
         let onmousedown = move |e: MouseEvent| {
             is_clicked.set(Some(e.get_element_coordinates()));
+            platform.set_cursor(CursorIcon::ColResize)
         };
 
         let onglobalclick = move |_: MouseEvent| {
+            platform.set_cursor(CursorIcon::Default);
             is_clicked.set(None);
         };
 
@@ -53,8 +55,8 @@ pub fn VerticalSeparator(
                 onglobalmouseover,
                 onglobalclick,
                 onmousedown,
-                onmouseover: move |_| {hover_anim.start(); platform.set_cursor(CursorIcon::ColResize)},
-                onmouseleave: move |_| {hover_anim.reverse(); platform.set_cursor(CursorIcon::Default)},
+                onmouseover: move |_| {hover_anim.start(); },
+                onmouseleave: move |_| {hover_anim.reverse();},
                 direction: "horizontal",
                 if reverse {
                     rect { height: "100%", width: "{width}", background: "{color}" }
