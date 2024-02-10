@@ -1,3 +1,5 @@
+use core::Core;
+
 use freya::prelude::*;
 use winit::dpi::LogicalSize;
 
@@ -29,6 +31,8 @@ fn main() {
         }
         builder
     });
+
+    let core = Core::new();
 
     launch_cfg(
         ui::SynkUI,
