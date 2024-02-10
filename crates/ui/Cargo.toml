@@ -11,3 +11,5 @@ dioxus = { git = "https://github.com/dioxuslabs/dioxus", branch = "master", feat
     "hooks",
 ], default-features = false }
 winit = "0.29.10"
+crop = { git = "https://github.com/nomad/crop" }
+synk_core = { path = "../core", package = "core" }

@@ -39,6 +39,7 @@ fn main() {
             println!("{}: {}", no, line);
         }
     }
+
     launch_cfg(
         ui::SynkUI,
         LaunchConfig::<()>::builder()

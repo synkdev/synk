@@ -15,11 +15,13 @@ use crate::{
     statusbar::Statusbar,
     tab_bar::TabBar,
 };
+use synk_core::{document::Document, Core};
 
 #[allow(non_snake_case)]
 pub fn SynkUI() -> Element {
     let colors = Colors::new();
     let sidebar_width = use_signal(|| 300_isize);
+    let document = Document::new("fn main() {\n    println!(\"Hello World!\");\n}".to_string());
 
     rsx! {
         rect {
@@ -41,7 +43,7 @@ pub fn SynkUI() -> Element {
             rect { width: "100%", height: "100%", direction: "vertical",
                 TabBar { colors: colors.tab_bar }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
-                Editor { colors: colors.editor.clone() }
+                Editor { colors: colors.editor.clone(), contents: document.contents }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
                 Statusbar { colors: colors.statusbar }
             }
