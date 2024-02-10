@@ -53,8 +53,8 @@ pub fn VerticalSeparator(
                 onglobalmouseover,
                 onglobalclick,
                 onmousedown,
-                onmouseover: move |_| {hover_anim.start()},
-                onmouseleave: move |_| {hover_anim.reverse()},
+                onmouseover: move |_| {hover_anim.start(); platform.set_cursor(CursorIcon::ColResize)},
+                onmouseleave: move |_| {hover_anim.reverse(); platform.set_cursor(CursorIcon::Default)},
                 direction: "horizontal",
                 if reverse {
                     rect { height: "100%", width: "{width}", background: "{color}" }
