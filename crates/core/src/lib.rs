@@ -1,3 +1,9 @@
+use std::{
+    fs::File,
+    io::Read,
+    path::{Path, PathBuf},
+};
+
 use crop::Rope;
 
 pub struct Document {
@@ -10,4 +16,6 @@ impl Document {
             contents: Rope::from(initial_contents),
         }
     }
+
+    pub fn from_file(file: PathBuf) -> Self {}
 }

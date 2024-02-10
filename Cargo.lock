@@ -812,6 +812,7 @@ name = "core"
 version = "0.1.0"
 dependencies = [
  "crop",
+ "fscx-rs",
 ]
 
 [[package]]
@@ -1892,6 +1893,16 @@ dependencies = [
  "tracing",
  "uuid",
  "winit",
+]
+
+[[package]]
+name = "fscx-rs"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ecb247a8fd29cf973f2f38cbe28e54b4ad793e7b42adfd0ef27fc064e229ca90"
+dependencies = [
+ "anyhow",
+ "walkdir",
 ]
 
 [[package]]
