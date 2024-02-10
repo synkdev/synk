@@ -33,7 +33,7 @@ pub fn SynkUI() -> Element {
             cross_align: "center",
             font_family: "JetBrains Mono",
             overflow: "clip",
-            Sidebar { width: sidebar_width, colors: colors.sidebar }
+            Sidebar { width: sidebar_width, colors: colors.clone().sidebar }
             VerticalSeparator {
                 colors: colors.separator.clone(),
                 interactive: true,
@@ -41,9 +41,9 @@ pub fn SynkUI() -> Element {
                 reverse: false
             }
             rect { width: "100%", height: "100%", direction: "vertical",
-                TabBar { colors: colors.tab_bar }
+                TabBar { colors: colors.clone().tab_bar }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
-                Editor { colors: colors.editor.clone(), contents: document.contents }
+                Editor { colors: colors.clone(), contents: document.contents }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
                 Statusbar { colors: colors.statusbar }
             }
