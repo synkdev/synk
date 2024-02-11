@@ -14,3 +14,4 @@ winit = "0.29.10"
 crop = { git = "https://github.com/nomad/crop" }
 synk_core = { path = "../core", package = "core" }
 tree-sitter = "0.20.10"
+tree-sitter-rust = "0.20.4"
