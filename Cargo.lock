@@ -4392,6 +4392,7 @@ name = "ui"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "cc",
  "core",
  "crop",
  "dioxus 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
