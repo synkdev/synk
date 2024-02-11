@@ -9,15 +9,33 @@ use tree_sitter::{Language, Parser};
 #[allow(non_snake_case)]
 #[component]
 pub fn Editor(colors: Colors, contents: Rope) -> Element {
+    let mut text = "fn main() {\n    println!(\"Hello, world!\");\n}".as_bytes();
+    let mut callback = |offset: usize, _: tree_sitter::Point| -> &[u8] {
+        // Return a slice of UTF-8 encoded text starting at the given byte offset
+        &text[offset..]
+    };
+
+    // Create a Tree-sitter parser and set the language (e.g., Rust)
     let mut parser = Parser::new();
     parser
         .set_language(tree_sitter_rust::language())
         .expect("Error loading Rust grammar");
-    let tree = parser.parse(contents.to_string(), None).unwrap();
-    let mut cursor = tree.root_node().walk();
 
-    for node in tree.root_node().children(&mut cursor) {
-        println!("{}", node.kind());
+    // Parse the UTF-8 text provided by the callback
+    let tree = parser.parse_with(&mut callback, None);
+
+    // Handle the parsed tree
+    match tree {
+        Some(parsed_tree) => {
+            // Use the parsed_tree
+            println!(
+                "Tree parsed successfully: {:?}",
+                parsed_tree.root_node().to_sexp()
+            );
+        }
+        None => {
+            println!("Parsing failed.");
+        }
     }
 
     rsx! {
