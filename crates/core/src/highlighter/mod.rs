@@ -1,6 +1,6 @@
 pub mod languages;
 
-use std::{fs::read_to_string, path::PathBuf};
+use std::{borrow::Borrow, fs::read_to_string, path::PathBuf};
 
 use languages::Languages;
 use ropey::{iter::Chunks, Rope, RopeSlice};
@@ -48,24 +48,21 @@ impl TSParser {
             rope,
         }
     }
-    pub fn get_matches(&mut self) -> QueryMatches<'_, '_, RopeProvider<'_>> {
+
+    pub fn get_scope<'a, 'b>(&mut self, index: usize) -> Option<String> {
         self.query_cursor.set_byte_range(
             self.rope.line_to_byte(0)..self.rope.line_to_byte(self.rope.len_lines()),
         );
 
-        self.query_cursor.matches(
-            &self.query,
-            self.tree.root_node(),
-            RopeProvider(self.rope.slice(..)),
-        )
-    }
+        let mut matches = self
+            .query_cursor
+            .matches(
+                &self.query,
+                self.tree.root_node(),
+                RopeProvider(self.rope.slice(..)),
+            )
+            .peekable();
 
-    pub fn get_scope<'a, 'b>(
-        &mut self,
-        matches: QueryMatches<'a, 'a, RopeProvider<'a>>,
-        index: usize,
-    ) -> Option<String> {
-        let mut matches = matches.peekable();
         loop {
             let query_match = matches.peek()?;
             if query_match.captures.is_empty() {

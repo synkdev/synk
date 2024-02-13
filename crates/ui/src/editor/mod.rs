@@ -1,79 +1,19 @@
 pub mod gutter;
 
-use std::{
-    fs::read_to_string,
-    path::{Path, PathBuf},
-};
-use synk_core::treesitter::RopeProvider;
-
 use freya::prelude::*;
+use synk_core::{document::Document, highlighter::TSParser};
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 use ropey::Rope;
-use tree_sitter::{Parser, Query, QueryCursor};
 
 #[allow(non_snake_case)]
 #[component]
-pub fn Editor(colors: Colors, contents: Rope) -> Element {
-    let code = contents.to_string();
-    let rust_lang = tree_sitter_rust::language();
-    let highlights_file = read_to_string(PathBuf::from(
-        "/home/mik3y/projects/repos/synk/resources/syntaxes/rust.scm",
-    ))
-    .unwrap();
-    let mut parser = Parser::new();
+pub fn Editor(colors: Colors) -> Element {
+    let document = Document::new("fn main() {\n    println!(\"Hello World!\");\n}".to_string());
+    let mut parser = document.ts_parser;
+    let scope = parser.get_scope(0);
 
-    parser.set_language(rust_lang).unwrap();
-    let highlights = Query::new(rust_lang, &highlights_file).unwrap();
-    let mut query_cursor = QueryCursor::new();
-
-    let tree = parser
-        .parse_with(
-            &mut |index, _| {
-                let (chunk, chunk_byte_idx, _, _) = contents.chunk_at_byte(index);
-                &chunk.as_bytes()[index - chunk_byte_idx..]
-            },
-            None,
-        )
-        .unwrap();
-
-    let mut matches = query_cursor
-        .matches(
-            &highlights,
-            tree.root_node(),
-            RopeProvider(contents.byte_slice(..)),
-        )
-        .peekable();
-
-    let mut get_scope = |byte_index: usize| loop {
-        let query_match = matches.peek()?;
-        if query_match.captures.is_empty() {
-            matches.next();
-            continue;
-        }
-        let capture = query_match.captures[0];
-        let capture_range = capture.node.byte_range();
-        if byte_index < capture_range.start {
-            return None;
-        } else if byte_index < capture_range.end {
-            return Some(
-                highlights.capture_names()[usize::try_from(capture.index).unwrap()].as_str(),
-            );
-        } else {
-            matches.next();
-            continue;
-        }
-    };
-
-    for (id, line) in contents.lines().enumerate() {
-        let mut char_index = contents.line_to_char(id);
-        let line_start_byte = contents.char_to_byte(char_index);
-
-        for chunk in line.chars().enumerate() {
-            let scope = get_scope(line_start_byte + chunk.len_utf8());
-            println!("{scope:?}");
-        }
-    }
+    println!("{scope:?}");
 
     rsx! {
         rect {
@@ -81,10 +21,10 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
             width: "100%",
             height: "calc(100% - 84)",
             direction: "horizontal",
-            Gutter { rope: contents.clone(), colors: colors.line_numbers }
+            Gutter { rope: document.rope.clone(), colors: colors.line_numbers }
             VerticalSeparator { interactive: false, reverse: false, colors: colors.separator }
             rect { width: "calc(100% - 50)", height: "100%", direction: "vertical",
-                for (_ , line) in contents.lines().enumerate() {
+                for (_ , line) in document.rope.lines().enumerate() {
                     rect {
                         background: "{colors.editor.background}",
                         width: "100%",
