@@ -881,6 +881,7 @@ version = "0.4.2"
 source = "git+https://github.com/nomad/crop#8c10b8164b70fe384b14587a9954b408e127a7d0"
 dependencies = [
  "str_indices",
+ "unicode-segmentation",
 ]
 
 [[package]]

@@ -58,6 +58,8 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
             continue;
         }
     };
+
+    for graphemes in contents.graphemes() {}
     let scope = get_scope(0).unwrap();
     println!("{scope:?}");
 
