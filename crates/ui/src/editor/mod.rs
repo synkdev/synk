@@ -6,7 +6,7 @@ use std::{
 };
 use synk_core::treesitter::RopeProvider;
 
-use freya::prelude::*;
+use freya::{dioxus::html::g, prelude::*};
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 use ropey::Rope;
@@ -27,10 +27,14 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
     let highlights = Query::new(rust_lang, &highlights_file).unwrap();
     let mut query_cursor = QueryCursor::new();
 
-    let chunks = contents.chunks();
-
     let tree = parser
-        .parse_with(&mut |index, _| &chunks[index..], None)
+        .parse_with(
+            &mut |index, _| {
+                let (chunk, chunk_byte_idx, _, _) = contents.chunk_at_byte(index);
+                &chunk.as_bytes()[index - chunk_byte_idx..]
+            },
+            None,
+        )
         .unwrap();
 
     let mut matches = query_cursor
@@ -61,9 +65,12 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
         }
     };
 
-    for (id, text) in contents.lines().enumerate() {
-        for graphemes in contents.graphemes() {
-            let scope = get_scope(graphemes.bytes().next().unwrap() as usize).unwrap();
+    for (id, line) in contents.lines().enumerate() {
+        let mut char_index = contents.line_to_char(id);
+        let line_start_byte = contents.char_to_byte(char_index);
+
+        for chunk in line.chars().enumerate() {
+            let scope = get_scope(line_start_byte + chunk.len_utf8());
             println!("{scope:?}");
         }
     }
