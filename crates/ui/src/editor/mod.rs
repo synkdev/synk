@@ -9,6 +9,17 @@ use tree_sitter::{Language, Parser};
 #[allow(non_snake_case)]
 #[component]
 pub fn Editor(colors: Colors, contents: Rope) -> Element {
+    let code = contents.to_string();
+
+    let mut parser = Parser::new();
+
+    parser.set_language(tree_sitter_rust::language()).unwrap();
+    let tree = parser
+        .parse_with(&mut |index, _| &code.as_bytes()[index..], None)
+        .unwrap();
+
+    println!("{tree:?}");
+
     rsx! {
         rect {
             background: "{colors.editor.background}",
