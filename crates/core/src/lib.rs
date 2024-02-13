@@ -1,5 +1,5 @@
 pub mod document;
-pub mod treesitter;
+pub mod highlighter;
 
 use document::Document;
 

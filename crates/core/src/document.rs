@@ -3,24 +3,22 @@ use std::path::PathBuf;
 
 use ropey::Rope;
 
-use crate::treesitter::TSParser;
+use crate::highlighter::{languages::Languages, TSParser};
 
 pub struct Document {
-    pub contents: Rope,
+    pub rope: Rope,
     pub ts_parser: TSParser,
 }
 
 impl Document {
     pub fn new(initial_contents: String) -> Self {
-        Document {
-            contents: Rope::from(initial_contents),
-        }
+        let rope = Rope::from(initial_contents);
+        let ts_parser = TSParser::new(Languages::Rust, rope);
+        Document { rope, ts_parser }
     }
 
     pub fn from_file(file: PathBuf) -> Self {
         let file = read_to_string(file).unwrap();
-        Document {
-            contents: Rope::from(file),
-        }
+        Self::new(file)
     }
 }
