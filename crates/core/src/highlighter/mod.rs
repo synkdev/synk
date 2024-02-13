@@ -4,7 +4,7 @@ use std::{fs::read_to_string, path::PathBuf};
 
 use languages::Languages;
 use ropey::{iter::Chunks, Rope, RopeSlice};
-use tree_sitter::{Language, Node, Parser, Query, QueryCursor, TextProvider, Tree};
+use tree_sitter::{Language, Node, Parser, Query, QueryCursor, QueryMatches, TextProvider, Tree};
 
 pub struct TSParser {
     pub language: Language,
@@ -12,6 +12,7 @@ pub struct TSParser {
     pub query_cursor: QueryCursor,
     pub parser: Parser,
     pub tree: Tree,
+    pub rope: Rope,
 }
 
 impl TSParser {
@@ -44,6 +45,45 @@ impl TSParser {
             query_cursor,
             parser,
             tree,
+            rope,
+        }
+    }
+    pub fn get_matches(&mut self) -> QueryMatches<'_, '_, RopeProvider<'_>> {
+        self.query_cursor.set_byte_range(
+            self.rope.line_to_byte(0)..self.rope.line_to_byte(self.rope.len_lines()),
+        );
+
+        self.query_cursor.matches(
+            &self.query,
+            self.tree.root_node(),
+            RopeProvider(self.rope.slice(..)),
+        )
+    }
+
+    pub fn get_scope<'a, 'b>(
+        &mut self,
+        matches: QueryMatches<'a, 'a, RopeProvider<'a>>,
+        index: usize,
+    ) -> Option<String> {
+        let mut matches = matches.peekable();
+        loop {
+            let query_match = matches.peek()?;
+            if query_match.captures.is_empty() {
+                matches.next();
+                continue;
+            }
+            let capture = query_match.captures[0];
+            let capture_range = capture.node.byte_range();
+            if index < capture_range.start {
+                return None;
+            } else if index < capture_range.end {
+                return Some(
+                    self.query.capture_names()[usize::try_from(capture.index).unwrap()].to_string(),
+                );
+            } else {
+                matches.next();
+                continue;
+            }
         }
     }
 }

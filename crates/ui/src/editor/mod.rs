@@ -6,7 +6,7 @@ use std::{
 };
 use synk_core::treesitter::RopeProvider;
 
-use freya::{dioxus::html::g, prelude::*};
+use freya::prelude::*;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 use ropey::Rope;
