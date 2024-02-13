@@ -1,5 +1,10 @@
 pub mod gutter;
 
+use std::{
+    fs::read_to_string,
+    path::{Path, PathBuf},
+};
+
 use freya::prelude::*;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
@@ -10,10 +15,15 @@ use tree_sitter::{Language, Parser};
 #[component]
 pub fn Editor(colors: Colors, contents: Rope) -> Element {
     let code = contents.to_string();
+    let rust_lang = tree_sitter_rust::language();
+    let highlights_path =
+        PathBuf::from(Path::new(file!()).join("../../../../resources/syntaxes/rust.scm"));
+    let highlights_file = read_to_string(highlights_path).unwrap();
+    println!("{highlights_file}");
 
     let mut parser = Parser::new();
 
-    parser.set_language(tree_sitter_rust::language()).unwrap();
+    parser.set_language(rust_lang).unwrap();
     let tree = parser
         .parse_with(&mut |index, _| &code.as_bytes()[index..], None)
         .unwrap();
