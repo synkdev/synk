@@ -1,5 +1,7 @@
 pub mod languages;
 
+use std::{fs::read_to_string, path::PathBuf};
+
 use languages::Languages;
 use ropey::{iter::Chunks, Rope, RopeSlice};
 use tree_sitter::{Language, Node, Parser, Query, QueryCursor, TextProvider, Tree};
@@ -13,7 +15,37 @@ pub struct TSParser {
 }
 
 impl TSParser {
-    pub fn new(language: Languages, rope: Rope) -> Self {}
+    pub fn new(language: Languages, rope: Rope) -> Self {
+        let language = match language {
+            Languages::Rust => tree_sitter_rust::language(),
+        };
+        let highlights_file = read_to_string(PathBuf::from(
+            "/home/mik3y/projects/repos/synk/resources/syntaxes/rust.scm",
+        ))
+        .unwrap();
+
+        let mut parser = Parser::new();
+        parser.set_language(language).unwrap();
+        let query = Query::new(language, &highlights_file).unwrap();
+        let query_cursor = QueryCursor::new();
+        let tree = parser
+            .parse_with(
+                &mut |index, _| {
+                    let (chunk, chunk_byte_idx, _, _) = rope.chunk_at_byte(index);
+                    &chunk.as_bytes()[index - chunk_byte_idx..]
+                },
+                None,
+            )
+            .unwrap();
+
+        TSParser {
+            language,
+            query,
+            query_cursor,
+            parser,
+            tree,
+        }
+    }
 }
 
 pub struct ChunkBytes<'a> {

@@ -13,7 +13,7 @@ pub struct Document {
 impl Document {
     pub fn new(initial_contents: String) -> Self {
         let rope = Rope::from(initial_contents);
-        let ts_parser = TSParser::new(Languages::Rust, rope);
+        let ts_parser = TSParser::new(Languages::Rust, rope.clone());
         Document { rope, ts_parser }
     }
 
