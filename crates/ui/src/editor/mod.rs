@@ -4,6 +4,7 @@ use std::{
     fs::read_to_string,
     path::{Path, PathBuf},
 };
+use synk_core::treesitter::RopeProvider;
 
 use freya::prelude::*;
 
@@ -25,11 +26,40 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
     parser.set_language(rust_lang).unwrap();
     let highlights = Query::new(rust_lang, &highlights_file).unwrap();
     let mut query_cursor = QueryCursor::new();
+
     let tree = parser
         .parse_with(&mut |index, _| &code.as_bytes()[index..], None)
         .unwrap();
 
-    println!("{tree:?}");
+    let mut matches = query_cursor
+        .matches(
+            &highlights,
+            tree.root_node(),
+            RopeProvider(contents.byte_slice(..)),
+        )
+        .peekable();
+
+    let mut get_scope = |byte_index: usize| loop {
+        let query_match = matches.peek()?;
+        if query_match.captures.is_empty() {
+            matches.next();
+            continue;
+        }
+        let capture = query_match.captures[0];
+        let capture_range = capture.node.byte_range();
+        if byte_index < capture_range.start {
+            return None;
+        } else if byte_index < capture_range.end {
+            return Some(
+                highlights.capture_names()[usize::try_from(capture.index).unwrap()].as_str(),
+            );
+        } else {
+            matches.next();
+            continue;
+        }
+    };
+    let scope = get_scope(0).unwrap();
+    println!("{scope:?}");
 
     rsx! {
         rect {

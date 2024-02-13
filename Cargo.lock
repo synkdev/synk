@@ -813,6 +813,8 @@ version = "0.1.0"
 dependencies = [
  "crop",
  "fscx-rs",
+ "tree-sitter",
+ "tree-sitter-rust",
 ]
 
 [[package]]
