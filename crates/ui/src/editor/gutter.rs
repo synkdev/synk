@@ -1,5 +1,5 @@
-use crop::Rope;
 use freya::prelude::*;
+use ropey::Rope;
 
 use crate::colors::LineNumberColors;
 

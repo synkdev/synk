@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-crop = { git = "https://github.com/nomad/crop", features = ["graphemes"] }
+ropey = { git = "https://github.com/cessen/ropey" }
 fscx-rs = "0.1.4"
 tree-sitter = "0.20.10"
 tree-sitter-rust = "0.20.4"

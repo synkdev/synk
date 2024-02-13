@@ -1,7 +1,7 @@
 use fscx_rs::file::read_to_string;
 use std::path::PathBuf;
 
-use crop::Rope;
+use ropey::Rope;
 
 pub struct Document {
     pub contents: Rope,

@@ -11,7 +11,7 @@ dioxus = { git = "https://github.com/dioxuslabs/dioxus", branch = "master", feat
     "hooks",
 ], default-features = false }
 winit = "0.29.10"
-crop = { git = "https://github.com/nomad/crop", features = ["graphemes"] }
+ropey = { git = "https://github.com/cessen/ropey" }
 synk_core = { path = "../core", package = "core" }
 tree-sitter = "0.20.10"
 tree-sitter-rust = "0.20.4"

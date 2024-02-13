@@ -9,8 +9,8 @@ use synk_core::treesitter::RopeProvider;
 use freya::prelude::*;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
-use crop::Rope;
-use tree_sitter::{Language, Parser, Query, QueryCursor};
+use ropey::Rope;
+use tree_sitter::{Parser, Query, QueryCursor};
 
 #[allow(non_snake_case)]
 #[component]
@@ -27,8 +27,10 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
     let highlights = Query::new(rust_lang, &highlights_file).unwrap();
     let mut query_cursor = QueryCursor::new();
 
+    let chunks = contents.chunks();
+
     let tree = parser
-        .parse_with(&mut |index, _| &code.as_bytes()[index..], None)
+        .parse_with(&mut |index, _| &chunks[index..], None)
         .unwrap();
 
     let mut matches = query_cursor
@@ -59,9 +61,12 @@ pub fn Editor(colors: Colors, contents: Rope) -> Element {
         }
     };
 
-    for graphemes in contents.graphemes() {}
-    let scope = get_scope(0).unwrap();
-    println!("{scope:?}");
+    for (id, text) in contents.lines().enumerate() {
+        for graphemes in contents.graphemes() {
+            let scope = get_scope(graphemes.bytes().next().unwrap() as usize).unwrap();
+            println!("{scope:?}");
+        }
+    }
 
     rsx! {
         rect {

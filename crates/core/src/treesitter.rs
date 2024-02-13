@@ -1,4 +1,4 @@
-use crop::{iter::Chunks, RopeSlice};
+use ropey::{iter::Chunks, RopeSlice};
 use tree_sitter::{Node, TextProvider};
 
 pub struct ChunkBytes<'a> {
