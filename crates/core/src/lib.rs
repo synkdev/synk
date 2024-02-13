@@ -1,4 +1,5 @@
 pub mod document;
+pub mod treesitter;
 
 use document::Document;
 

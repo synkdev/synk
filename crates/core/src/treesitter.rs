@@ -1,0 +1,3 @@
+struct ChunkBytes {
+    chunks: crop
+}

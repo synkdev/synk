@@ -9,21 +9,22 @@ use freya::prelude::*;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 use crop::Rope;
-use tree_sitter::{Language, Parser};
+use tree_sitter::{Language, Parser, Query, QueryCursor};
 
 #[allow(non_snake_case)]
 #[component]
 pub fn Editor(colors: Colors, contents: Rope) -> Element {
     let code = contents.to_string();
     let rust_lang = tree_sitter_rust::language();
-    let highlights_path =
-        PathBuf::from(Path::new(file!()).join("../../../../resources/syntaxes/rust.scm"));
-    let highlights_file = read_to_string(highlights_path).unwrap();
-    println!("{highlights_file}");
-
+    let highlights_file = read_to_string(PathBuf::from(
+        "/home/mik3y/projects/repos/synk/resources/syntaxes/rust.scm",
+    ))
+    .unwrap();
     let mut parser = Parser::new();
 
     parser.set_language(rust_lang).unwrap();
+    let highlights = Query::new(rust_lang, &highlights_file).unwrap();
+    let mut query_cursor = QueryCursor::new();
     let tree = parser
         .parse_with(&mut |index, _| &code.as_bytes()[index..], None)
         .unwrap();
