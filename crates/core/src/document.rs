@@ -3,8 +3,11 @@ use std::path::PathBuf;
 
 use ropey::Rope;
 
+use crate::treesitter::TSParser;
+
 pub struct Document {
     pub contents: Rope,
+    pub ts_parser: TSParser,
 }
 
 impl Document {

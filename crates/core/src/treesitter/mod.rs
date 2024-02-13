@@ -1,5 +1,15 @@
+pub mod languages;
+
 use ropey::{iter::Chunks, RopeSlice};
-use tree_sitter::{Node, TextProvider};
+use tree_sitter::{Language, Node, Parser, Query, QueryCursor, TextProvider, Tree};
+
+pub struct TSParser {
+    pub language: Language,
+    pub query: Query,
+    pub query_cursor: QueryCursor,
+    pub parser: Parser,
+    pub tree: Tree,
+}
 
 pub struct ChunkBytes<'a> {
     pub chunks: Chunks<'a>,
