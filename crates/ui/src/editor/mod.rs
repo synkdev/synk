@@ -3,8 +3,9 @@ pub mod gutter;
 use freya::prelude::*;
 use synk_core::{
     document::Document,
-    highlighter::{languages::Languages, TSParser},
+    highlighter::{languages::Languages, RopeProvider, TSParser},
 };
+use tree_sitter::QueryCursor;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 use ropey::Rope;
@@ -13,7 +14,18 @@ use ropey::Rope;
 #[component]
 pub fn Editor(colors: Colors) -> Element {
     let document = Document::new("fn main() {\n    println!(\"Hello World!\");\n}".to_string());
-    let scope = TSParser::get_scope(Languages::Rust, document.rope.clone(), 0);
+    let parser = TSParser::new(Languages::Rust, document.rope.clone());
+    let query = parser.query;
+    let rope = parser.rope;
+    let tree = parser.tree;
+    let mut query_cursor = QueryCursor::new();
+    query_cursor.set_byte_range(rope.line_to_byte(0)..rope.line_to_byte(rope.len_lines()));
+
+    let matches = query_cursor
+        .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
+        .peekable();
+
+    let scope = TSParser::get_scope(&query, matches, 0);
 
     println!("{scope:?}");
 
