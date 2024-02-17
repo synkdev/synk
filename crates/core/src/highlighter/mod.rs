@@ -15,36 +15,36 @@ pub struct TSParser<'a> {
 }
 
 impl<'a> TSParser<'a> {
-    // pub fn new(language: Languages, rope: Rope) -> Self {
-    //     let language = match language {
-    //         Languages::Rust => tree_sitter_rust::language(),
-    //     };
-    //     let highlights_file = read_to_string(PathBuf::from(
-    //         "/home/mik3y/projects/repos/synk/resources/syntaxes/rust.scm",
-    //     ))
-    //     .unwrap();
+    pub fn new(language: Languages, rope: Rope) -> Self {
+        let language = match language {
+            Languages::Rust => tree_sitter_rust::language(),
+        };
+        let highlights_file = read_to_string(PathBuf::from(
+            "/home/mik3y/projects/repos/synk/resources/syntaxes/rust.scm",
+        ))
+        .unwrap();
 
-    //     let mut parser = Parser::new();
-    //     parser.set_language(language).unwrap();
-    //     let query = &Query::new(language, &highlights_file).unwrap();
-    //     let tree = parser
-    //         .parse_with(
-    //             &mut |index, _| {
-    //                 let (chunk, chunk_byte_idx, _, _) = rope.chunk_at_byte(index);
-    //                 &chunk.as_bytes()[index - chunk_byte_idx..]
-    //             },
-    //             None,
-    //         )
-    //         .unwrap();
+        let mut parser = Parser::new();
+        parser.set_language(language).unwrap();
+        let query = &Query::new(language, &highlights_file).unwrap();
+        let tree = parser
+            .parse_with(
+                &mut |index, _| {
+                    let (chunk, chunk_byte_idx, _, _) = rope.chunk_at_byte(index);
+                    &chunk.as_bytes()[index - chunk_byte_idx..]
+                },
+                None,
+            )
+            .unwrap();
 
-    //     TSParser {
-    //         language,
-    //         query,
-    //         parser,
-    //         tree,
-    //         rope,
-    //     }
-    // }
+        TSParser {
+            language,
+            query,
+            parser,
+            tree,
+            rope,
+        }
+    }
 
     pub fn parse(language: Languages, rope: Rope, index: usize) {
         let language = match language {
@@ -70,29 +70,9 @@ impl<'a> TSParser<'a> {
             )
             .unwrap();
 
-        let mut matches = query_cursor
+        let matches = query_cursor
             .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
             .peekable();
-
-        let mut get_scope = |byte_index: usize| loop {
-            let query_match = matches.peek()?;
-            if query_match.captures.is_empty() {
-                matches.next();
-                continue;
-            }
-            let capture = query_match.captures[0];
-            let capture_range = capture.node.byte_range();
-            if index < capture_range.start {
-                return None;
-            } else if index < capture_range.end {
-                return Some(
-                    query.capture_names()[usize::try_from(capture.index).unwrap()].to_string(),
-                );
-            } else {
-                matches.next();
-                continue;
-            }
-        };
     }
 
     pub fn get_scope<T>(
