@@ -6,15 +6,15 @@ use languages::Languages;
 use ropey::{iter::Chunks, Rope, RopeSlice};
 use tree_sitter::{Language, Node, Parser, Query, QueryCursor, QueryMatches, TextProvider, Tree};
 
-pub struct TSParser<'a> {
+pub struct TSParser {
     pub language: Language,
-    pub query: &'a Query,
+    pub query: Query,
     pub parser: Parser,
     pub tree: Tree,
     pub rope: Rope,
 }
 
-impl<'a> TSParser<'a> {
+impl TSParser {
     pub fn new(language: Languages, rope: Rope) -> Self {
         let language = match language {
             Languages::Rust => tree_sitter_rust::language(),
@@ -26,7 +26,7 @@ impl<'a> TSParser<'a> {
 
         let mut parser = Parser::new();
         parser.set_language(language).unwrap();
-        let query = &Query::new(language, &highlights_file).unwrap();
+        let query = Query::new(language, &highlights_file).unwrap();
         let tree = parser
             .parse_with(
                 &mut |index, _| {
@@ -75,7 +75,7 @@ impl<'a> TSParser<'a> {
             .peekable();
     }
 
-    pub fn get_scope<T>(
+    pub fn get_scope<'a, T>(
         query: Query,
         mut matches: Peekable<QueryMatches<'a, 'a, T>>,
         byte_idx: usize,
