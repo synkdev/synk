@@ -21,13 +21,9 @@ pub fn Editor(colors: Colors) -> Element {
     let mut query_cursor = QueryCursor::new();
     query_cursor.set_byte_range(rope.line_to_byte(0)..rope.line_to_byte(rope.len_lines()));
 
-    let matches = query_cursor
+    let mut matches = query_cursor
         .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
         .peekable();
-
-    let scope = TSParser::get_scope(&query, matches, 0);
-
-    println!("{scope:?}");
 
     rsx! {
         rect {
@@ -45,11 +41,24 @@ pub fn Editor(colors: Colors) -> Element {
                         height: "40",
                         direction: "horizontal",
                         cross_align: "center",
-                        label {
-                            font_family: "JetBrains Mono",
-                            font_size: "16",
-                            color: "{colors.editor.foreground}",
-                            "{line}"
+                        paragraph { width: "100%", max_lines: "1", font_size: "16", font_family: "JetBrains Mono",
+                            for (byte_idx , char) in line.chars().enumerate() {
+                                {
+                                let scope = TSParser::get_scope(&query, &mut matches, byte_idx).unwrap_or("".to_string());
+                                let starts = |pattern| scope.starts_with(pattern);
+                                let color = match () {
+                                    _ if starts("keyword") => "rgb(243, 139, 168)",
+                                    _ => "rgb(205, 214, 244)"
+                                };
+                                rsx!(
+                                    text {
+                                        key: "{byte_idx}",
+                                        color: "{color}",
+                                        "{char}"
+                                    }
+                                )
+                            }
+                            }
                         }
                     }
                 }

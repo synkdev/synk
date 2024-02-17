@@ -4,9 +4,7 @@ use std::{fs::read_to_string, iter::Peekable, path::PathBuf};
 
 use languages::Languages;
 use ropey::{iter::Chunks, Rope, RopeSlice};
-use tree_sitter::{
-    Language, Node, Parser, Query, QueryCursor, QueryMatch, QueryMatches, TextProvider, Tree,
-};
+use tree_sitter::{Language, Node, Parser, Query, QueryMatches, TextProvider, Tree};
 
 pub struct TSParser {
     pub language: Language,
@@ -48,31 +46,9 @@ impl TSParser {
         }
     }
 
-    // pub fn parse<'a>(&'a self) -> Vec<QueryMatch<'a, 'a>> {
-    //     let query = &self.query;
-    //     let rope = &self.rope;
-    //     let tree = &self.tree;
-
-    //     let mut query_cursor = QueryCursor::new();
-    //     query_cursor.set_byte_range(rope.line_to_byte(0)..rope.line_to_byte(rope.len_lines()));
-
-    //     query_cursor
-    //         .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
-    //         .collect::<Vec<_>>();
-    //     let mut matches = Vec::new();
-    //     while let Some(match_) = query_cursor
-    //         .matches(&query, self.tree.root_node(), RopeProvider(rope.slice(..)))
-    //         .next()
-    //     {
-    //         matches.push(match_);
-    //     }
-
-    //     matches
-    // }
-
     pub fn get_scope<'a, T>(
         query: &Query,
-        mut matches: Peekable<QueryMatches<'a, 'a, T>>,
+        matches: &mut Peekable<QueryMatches<'a, 'a, T>>,
         byte_idx: usize,
     ) -> Option<String>
     where
