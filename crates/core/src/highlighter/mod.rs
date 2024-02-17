@@ -94,6 +94,35 @@ impl<'a> TSParser<'a> {
             }
         };
     }
+
+    pub fn get_scope<T>(
+        query: Query,
+        mut matches: Peekable<QueryMatches<'a, 'a, T>>,
+        byte_idx: usize,
+    ) -> Option<String>
+    where
+        T: TextProvider<'a>,
+    {
+        loop {
+            let query_match = matches.peek()?;
+            if query_match.captures.is_empty() {
+                matches.next();
+                continue;
+            }
+            let capture = query_match.captures[0];
+            let capture_range = capture.node.byte_range();
+            if byte_idx < capture_range.start {
+                return None;
+            } else if byte_idx < capture_range.end {
+                return Some(
+                    query.capture_names()[usize::try_from(capture.index).unwrap()].to_string(),
+                );
+            } else {
+                matches.next();
+                continue;
+            }
+        }
+    }
 }
 
 pub struct ChunkBytes<'a> {
