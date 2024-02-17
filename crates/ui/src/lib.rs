@@ -15,7 +15,6 @@ use crate::{
     statusbar::Statusbar,
     tab_bar::TabBar,
 };
-use synk_core::document::Document;
 
 #[allow(non_snake_case)]
 pub fn SynkUI() -> Element {

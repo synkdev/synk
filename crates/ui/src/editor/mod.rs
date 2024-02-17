@@ -1,7 +1,10 @@
 pub mod gutter;
 
 use freya::prelude::*;
-use synk_core::{document::Document, highlighter::TSParser};
+use synk_core::{
+    document::Document,
+    highlighter::{languages::Languages, TSParser},
+};
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 use ropey::Rope;
@@ -10,8 +13,7 @@ use ropey::Rope;
 #[component]
 pub fn Editor(colors: Colors) -> Element {
     let document = Document::new("fn main() {\n    println!(\"Hello World!\");\n}".to_string());
-    let mut parser = document.ts_parser;
-    let scope = parser.get_scope(0);
+    let scope = TSParser::get_scope(Languages::Rust, document.rope.clone(), 0);
 
     println!("{scope:?}");
 

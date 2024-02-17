@@ -1,34 +1,65 @@
 pub mod languages;
 
-use std::{borrow::Borrow, fs::read_to_string, path::PathBuf};
+use std::{fs::read_to_string, iter::Peekable, path::PathBuf};
 
 use languages::Languages;
 use ropey::{iter::Chunks, Rope, RopeSlice};
 use tree_sitter::{Language, Node, Parser, Query, QueryCursor, QueryMatches, TextProvider, Tree};
 
-pub struct TSParser {
+pub struct TSParser<'a> {
     pub language: Language,
-    pub query: Query,
-    pub query_cursor: QueryCursor,
+    pub query: &'a Query,
     pub parser: Parser,
     pub tree: Tree,
     pub rope: Rope,
 }
 
-impl TSParser {
-    pub fn new(language: Languages, rope: Rope) -> Self {
+impl<'a> TSParser<'a> {
+    // pub fn new(language: Languages, rope: Rope) -> Self {
+    //     let language = match language {
+    //         Languages::Rust => tree_sitter_rust::language(),
+    //     };
+    //     let highlights_file = read_to_string(PathBuf::from(
+    //         "/home/mik3y/projects/repos/synk/resources/syntaxes/rust.scm",
+    //     ))
+    //     .unwrap();
+
+    //     let mut parser = Parser::new();
+    //     parser.set_language(language).unwrap();
+    //     let query = &Query::new(language, &highlights_file).unwrap();
+    //     let tree = parser
+    //         .parse_with(
+    //             &mut |index, _| {
+    //                 let (chunk, chunk_byte_idx, _, _) = rope.chunk_at_byte(index);
+    //                 &chunk.as_bytes()[index - chunk_byte_idx..]
+    //             },
+    //             None,
+    //         )
+    //         .unwrap();
+
+    //     TSParser {
+    //         language,
+    //         query,
+    //         parser,
+    //         tree,
+    //         rope,
+    //     }
+    // }
+
+    pub fn parse(language: Languages, rope: Rope, index: usize) {
         let language = match language {
             Languages::Rust => tree_sitter_rust::language(),
         };
+        let mut parser = Parser::new();
+        parser.set_language(language).unwrap();
         let highlights_file = read_to_string(PathBuf::from(
             "/home/mik3y/projects/repos/synk/resources/syntaxes/rust.scm",
         ))
         .unwrap();
-
-        let mut parser = Parser::new();
-        parser.set_language(language).unwrap();
         let query = Query::new(language, &highlights_file).unwrap();
-        let query_cursor = QueryCursor::new();
+
+        let mut query_cursor = QueryCursor::new();
+        query_cursor.set_byte_range(rope.line_to_byte(0)..rope.line_to_byte(rope.len_lines()));
         let tree = parser
             .parse_with(
                 &mut |index, _| {
@@ -39,31 +70,11 @@ impl TSParser {
             )
             .unwrap();
 
-        TSParser {
-            language,
-            query,
-            query_cursor,
-            parser,
-            tree,
-            rope,
-        }
-    }
-
-    pub fn get_scope<'a, 'b>(&mut self, index: usize) -> Option<String> {
-        self.query_cursor.set_byte_range(
-            self.rope.line_to_byte(0)..self.rope.line_to_byte(self.rope.len_lines()),
-        );
-
-        let mut matches = self
-            .query_cursor
-            .matches(
-                &self.query,
-                self.tree.root_node(),
-                RopeProvider(self.rope.slice(..)),
-            )
+        let mut matches = query_cursor
+            .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
             .peekable();
 
-        loop {
+        let mut get_scope = |byte_index: usize| loop {
             let query_match = matches.peek()?;
             if query_match.captures.is_empty() {
                 matches.next();
@@ -75,13 +86,13 @@ impl TSParser {
                 return None;
             } else if index < capture_range.end {
                 return Some(
-                    self.query.capture_names()[usize::try_from(capture.index).unwrap()].to_string(),
+                    query.capture_names()[usize::try_from(capture.index).unwrap()].to_string(),
                 );
             } else {
                 matches.next();
                 continue;
             }
-        }
+        };
     }
 }
 
