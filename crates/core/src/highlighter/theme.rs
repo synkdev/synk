@@ -133,6 +133,29 @@ impl Style {
     }
 }
 
+impl Default for Identifiers {
+    fn default() -> Self {
+        Identifiers {
+            variables: Variables {
+                default: (),
+                builtin: (),
+                parameter: (),
+                member: (),
+            },
+            constants: Constants {
+                default: (),
+                builtin: (),
+                macro_: (),
+            },
+            modules: Modules {
+                default: (),
+                builtin: (),
+            },
+            label: (),
+        }
+    }
+}
+
 impl SyntaxTheme {
     pub fn default() -> Self {
         SyntaxTheme {
