@@ -1,4 +1,5 @@
 pub mod languages;
+pub mod theme;
 
 use std::{fs::read_to_string, iter::Peekable, path::PathBuf};
 
