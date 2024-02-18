@@ -128,6 +128,13 @@ impl Style {
             weight: "normal",
         }
     }
+    pub fn inverted(background: &'static str) -> Self {
+        Style {
+            background,
+            color: "rgb(30, 29, 45)",
+            weight: "normal",
+        }
+    }
     pub fn bold(color: &'static str) -> Self {
         Style {
             color,
@@ -156,6 +163,102 @@ impl Default for Identifiers {
                 builtin: Style::normal(MOCHA.lavender),
             },
             label: Style::normal(MOCHA.sapphire),
+        }
+    }
+}
+
+impl Default for Literals {
+    fn default() -> Self {
+        Literals {
+            strings: Strings {
+                default: Style::normal(MOCHA.green),
+                docs: Style::normal(MOCHA.green),
+                regexp: Style::normal(MOCHA.peach),
+                escape: Style::normal(MOCHA.pink),
+                special: Style::normal(MOCHA.pink),
+                special_symbol: Style::normal(MOCHA.flamingo),
+                special_url: Style::normal(MOCHA.rosewater),
+                special_path: Style::normal(MOCHA.rosewater),
+            },
+            characters: Characters {
+                default: Style::normal(MOCHA.teal),
+                special: Style::normal(MOCHA.pink),
+            },
+            boolean: Style::normal(MOCHA.peach),
+            number: Style::normal(MOCHA.peach),
+            float: Style::normal(MOCHA.peach),
+        }
+    }
+}
+
+impl Default for Types {
+    fn default() -> Self {
+        Types {
+            default: Style::normal(MOCHA.yellow),
+            builtin: Style::normal(MOCHA.yellow),
+            definition: Style::normal(MOCHA.yellow),
+            qualifier: Style::normal(MOCHA.mauve),
+            attribute: Style::normal(MOCHA.teal),
+            property: Style::normal(MOCHA.lavender),
+        }
+    }
+}
+
+impl Default for Functions {
+    fn default() -> Self {
+        Functions {
+            default: Style::normal(MOCHA.blue),
+            builtin: Style::normal(MOCHA.peach),
+            call: Style::normal(MOCHA.blue),
+            macro_: Style::normal(MOCHA.teal),
+            method: Style::normal(MOCHA.blue),
+            method_call: Style::normal(MOCHA.blue),
+            constructor: Style::normal(MOCHA.sapphire),
+            operator: Style::normal(MOCHA.sky),
+        }
+    }
+}
+
+impl Default for Keywords {
+    fn default() -> Self {
+        Keywords {
+            default: Style::normal(MOCHA.mauve),
+            coroutine: Style::normal(MOCHA.mauve),
+            function: Style::normal(MOCHA.mauve),
+            operator: Style::normal(MOCHA.mauve),
+            import: Style::normal(MOCHA.mauve),
+            storage: Style::normal(MOCHA.yellow),
+            repeat: Style::normal(MOCHA.mauve),
+            return_: Style::normal(MOCHA.mauve),
+            debug: Style::normal(MOCHA.mauve),
+            exception: Style::normal(MOCHA.mauve),
+            conditional: Style::normal(MOCHA.mauve),
+            conditional_ternary: Style::normal(MOCHA.mauve),
+            directive: Style::normal(MOCHA.pink),
+            directive_define: Style::normal(MOCHA.pink),
+        }
+    }
+}
+
+impl Default for Punctuation {
+    fn default() -> Self {
+        Punctuation {
+            delimeter: Style::normal(MOCHA.overlay2),
+            bracket: Style::normal(MOCHA.overlay2),
+            special: Style::normal(MOCHA.pink),
+        }
+    }
+}
+
+impl Default for Comments {
+    fn default() -> Self {
+        Comments {
+            default: Style::normal(MOCHA.overlay0),
+            docs: Style::normal(MOCHA.overlay0),
+            error: Style::inverted(MOCHA.red),
+            warning: Style::inverted(MOCHA.yellow),
+            todo: Style::inverted(MOCHA.blue),
+            note: Style::inverted(MOCHA.flamingo),
         }
     }
 }
