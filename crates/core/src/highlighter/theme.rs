@@ -116,6 +116,23 @@ pub struct Comments {
     pub note: Style,
 }
 
+impl Style {
+    pub fn normal(color: &'static str) -> Self {
+        Style {
+            color,
+            background: "rgb(30, 29, 45)",
+            weight: "normal",
+        }
+    }
+    pub fn bold(color: &'static str) -> Self {
+        Style {
+            color,
+            background: "rgb(30, 29, 45)",
+            weight: "bold",
+        }
+    }
+}
+
 impl SyntaxTheme {
     pub fn default() -> Self {
         SyntaxTheme {
