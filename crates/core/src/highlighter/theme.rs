@@ -6,21 +6,28 @@ pub struct Style {
 }
 
 pub struct SyntaxTheme {
-    pub character: Style,
-    pub comment: Style,
-    pub comment_doc: Style,
-    pub constant: Style,
-    pub function_call: Style,
-    pub invalid: Style,
-    pub keyword: Style,
-    pub keyword_light: Style,
-    pub link: Style,
-    pub macro_call: Style,
-    pub punctuation: Style,
-    pub string: Style,
-    pub type_def: Style,
-    pub variant: Style,
-    pub default: Style,
+    pub identifiers: Identifiers,
+    pub literals: Literals,
+    pub types: Types,
+    pub functions: Functions,
+    pub keywords: Keywords,
+    pub punctuation: Punctuation,
+    pub comments: Comments,
+}
+
+pub struct Identifiers {
+    pub variables: Variables,
+    pub constants: Constants,
+    pub modules: Modules,
+    pub label: Style,
+}
+
+pub struct Literals {
+    pub strings: Strings,
+    pub characters: Characters,
+    pub boolean: Style,
+    pub number: Style,
+    pub float: Style,
 }
 
 pub struct Variables {
@@ -92,6 +99,21 @@ pub struct Keywords {
     pub conditional_ternary: Style,
     pub directive: Style,
     pub directive_define: Style,
+}
+
+pub struct Punctuation {
+    pub delimeter: Style,
+    pub bracket: Style,
+    pub special: Style,
+}
+
+pub struct Comments {
+    pub default: Style,
+    pub docs: Style,
+    pub error: Style,
+    pub warning: Style,
+    pub todo: Style,
+    pub note: Style,
 }
 
 impl SyntaxTheme {
