@@ -1,5 +1,6 @@
 pub mod document;
 pub mod highlighter;
+pub mod default_themes;
 
 use document::Document;
 
