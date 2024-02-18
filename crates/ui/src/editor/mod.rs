@@ -8,17 +8,11 @@ use synk_core::{
 use tree_sitter::QueryCursor;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
-use ropey::Rope;
 
 #[allow(non_snake_case)]
 #[component]
 pub fn Editor(colors: Colors) -> Element {
-    let document = Document::new(
-        r#"fn main() {
-    println!("Hello World!");
-}"#
-        .to_string(),
-    );
+    let document = Document::new("fn main() {\n    println!(\"Hello World!\");\n}".to_string());
     let parser = TSParser::new(Languages::Rust, document.rope.clone());
     let query = parser.query;
     let rope = parser.rope;
@@ -30,8 +24,6 @@ pub fn Editor(colors: Colors) -> Element {
     let mut matches = query_cursor
         .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
         .peekable();
-
-    let line_idx = 0;
 
     rsx! {
         rect {
@@ -56,7 +48,6 @@ pub fn Editor(colors: Colors) -> Element {
                                 paragraph { width: "100%", max_lines: "1", font_size: "16", font_family: "JetBrains Mono",
                                     for (byte_idx , char) in line.chars().enumerate() {
                                         {
-                                            println!("{char}:{byte_idx}");
                                             let scope = TSParser::get_scope(&query, &mut matches, line_start_byte + byte_idx).unwrap_or("".to_string());
                                             let color = theme.get_color_from_scope(scope);
                                             rsx!(
