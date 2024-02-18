@@ -29,7 +29,7 @@ pub struct Catppuccin {
 }
 
 impl Catppuccin {
-    pub fn mocha() -> Self {
+    pub const fn mocha() -> Self {
         Catppuccin {
             rosewater: "rgb(244, 219, 214)",
             flamingo: "rgb(240, 198, 198)",
