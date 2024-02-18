@@ -1,3 +1,7 @@
+use crate::default_themes::catppuccin::Catppuccin;
+
+const MOCHA: Catppuccin = Catppuccin::mocha();
+
 #[derive(Clone, Copy, Debug)]
 pub struct Style {
     pub color: &'static str,
@@ -137,21 +141,21 @@ impl Default for Identifiers {
     fn default() -> Self {
         Identifiers {
             variables: Variables {
-                default: (),
-                builtin: (),
-                parameter: (),
-                member: (),
+                default: Style::normal(MOCHA.text),
+                builtin: Style::normal(MOCHA.red),
+                parameter: Style::normal(MOCHA.maroon),
+                member: Style::normal(MOCHA.lavender),
             },
             constants: Constants {
-                default: (),
-                builtin: (),
-                macro_: (),
+                default: Style::normal(MOCHA.overlay0),
+                builtin: Style::normal(MOCHA.peach),
+                macro_: Style::normal(MOCHA.mauve),
             },
             modules: Modules {
-                default: (),
-                builtin: (),
+                default: Style::normal(MOCHA.lavender),
+                builtin: Style::normal(MOCHA.lavender),
             },
-            label: (),
+            label: Style::normal(MOCHA.sapphire),
         }
     }
 }
