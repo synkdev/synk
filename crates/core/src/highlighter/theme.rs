@@ -66,6 +66,34 @@ pub struct Types {
     pub property: Style,
 }
 
+pub struct Functions {
+    pub default: Style,
+    pub builtin: Style,
+    pub call: Style,
+    pub macro_: Style,
+    pub method: Style,
+    pub method_call: Style,
+    pub constructor: Style,
+    pub operator: Style,
+}
+
+pub struct Keywords {
+    pub default: Style,
+    pub coroutine: Style,
+    pub function: Style,
+    pub operator: Style,
+    pub import: Style,
+    pub storage: Style,
+    pub repeat: Style,
+    pub return_: Style,
+    pub debug: Style,
+    pub exception: Style,
+    pub conditional: Style,
+    pub conditional_ternary: Style,
+    pub directive: Style,
+    pub directive_define: Style,
+}
+
 impl SyntaxTheme {
     pub fn default() -> Self {
         SyntaxTheme {
