@@ -103,41 +103,38 @@ impl Theme {
             },
         }
     }
-    pub fn get_color_from_scope(&self, scope: String) -> Style {
-        let starts = |pattern| scope.starts_with(pattern);
-
-        match () {
-            _ if scope.is_empty() => self.default,
-            _ if starts("error") => self.invalid,
-            _ if starts("attribute") => self.macro_call,
-            _ if starts("comment.block") => self.comment_doc,
-            _ if starts("comment") => self.comment,
-            _ if starts("constructor") => self.variant,
-            _ if starts("constant.character") => self.character,
-            _ if starts("constant.numeric") => self.function_call,
-            _ if starts("constant") => self.constant,
-            _ if starts("string") => self.string,
-            _ if starts("function.macro") => self.macro_call,
-            _ if starts("function") => self.function_call,
-            _ if starts("keyword.control.import") => self.keyword,
-            _ if starts("keyword") => self.keyword,
-            _ if starts("punctuation") => self.punctuation,
-            _ if starts("property") => self.function_call,
-            _ if starts("punctuation.bracket") => self.punctuation,
-            _ if starts("punctuation.delimiter") => self.punctuation,
-            _ if starts("punctuation.special") => self.punctuation,
-            _ if starts("punctuation") => self.default,
-            _ if starts("special") => self.punctuation,
-            _ if starts("table.name") => self.keyword_light,
-            _ if starts("type.variant") => self.variant,
-            _ if starts("type") => self.type_def,
-            _ if starts("tag") => self.function_call,
-            _ if starts("default.title") => self.keyword,
-            _ if starts("default.emphasis") => self.keyword_light,
-            _ if starts("default.strong") => self.keyword,
-            _ if starts("default.literal") => self.string,
-            _ if starts("default.uri") => self.punctuation,
-
+    pub fn get_char_style(&self, scope: String) -> Style {
+        match &scope as &str {
+            // Variables
+            "variable" => self.default,
+            "variable.builtin" => self.default,
+            "variable.parameter" => self.default,
+            "variable.member" => self.default,
+            // Constants
+            "constant" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
+            "" => self.default,
             _ => self.default,
         }
     }
