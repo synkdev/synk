@@ -5,7 +5,7 @@ pub struct Style {
     pub weight: &'static str,
 }
 
-pub struct Theme {
+pub struct SyntaxTheme {
     pub character: Style,
     pub comment: Style,
     pub comment_doc: Style,
@@ -23,9 +23,52 @@ pub struct Theme {
     pub default: Style,
 }
 
-impl Theme {
+pub struct Variables {
+    pub default: Style,
+    pub builtin: Style,
+    pub parameter: Style,
+    pub member: Style,
+}
+
+pub struct Constants {
+    pub default: Style,
+    pub builtin: Style,
+    pub macro_: Style,
+}
+
+pub struct Modules {
+    pub default: Style,
+    pub builtin: Style,
+}
+
+pub struct Strings {
+    pub default: Style,
+    pub docs: Style,
+    pub regexp: Style,
+    pub escape: Style,
+    pub special: Style,
+    pub special_symbol: Style,
+    pub special_url: Style,
+    pub special_path: Style,
+}
+
+pub struct Characters {
+    pub default: Style,
+    pub special: Style,
+}
+
+pub struct Types {
+    pub default: Style,
+    pub builtin: Style,
+    pub definition: Style,
+    pub qualifier: Style,
+    pub attribute: Style,
+    pub property: Style,
+}
+
+impl SyntaxTheme {
     pub fn default() -> Self {
-        Theme {
+        SyntaxTheme {
             default: Style {
                 color: "rgb(205, 214, 244)",
                 background: "rgb(30, 29, 45)",

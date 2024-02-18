@@ -49,7 +49,7 @@ pub fn Editor(colors: Colors) -> Element {
                                     for (byte_idx , char) in line.chars().enumerate() {
                                         {
                                             let scope = TSParser::get_scope(&query, &mut matches, line_start_byte + byte_idx).unwrap_or("".to_string());
-                                            let color = theme.get_color_from_scope(scope);
+                                            let color = theme.get_char_style(scope);
                                             rsx!(
                                                 text {
                                                     color: "{color.color}",
