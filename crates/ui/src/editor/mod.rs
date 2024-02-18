@@ -3,7 +3,7 @@ pub mod gutter;
 use freya::prelude::*;
 use synk_core::{
     document::Document,
-    highlighter::{languages::Languages, theme::Theme, RopeProvider, TSParser},
+    highlighter::{languages::Languages, theme::SyntaxTheme, RopeProvider, TSParser},
 };
 use tree_sitter::QueryCursor;
 
@@ -19,7 +19,7 @@ pub fn Editor(colors: Colors) -> Element {
     let tree = parser.tree;
     let mut query_cursor = QueryCursor::new();
     query_cursor.set_byte_range(rope.line_to_byte(0)..rope.line_to_byte(rope.len_lines()));
-    let theme = Theme::default();
+    let theme = SyntaxTheme::default();
 
     let mut matches = query_cursor
         .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
