@@ -54,7 +54,6 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 for (byte_idx, char) in line.chars().enumerate() {
                     let text_blob = TextBlob::from_str(char.to_string().as_str(), &font);
                     let text_bounds = font.measure_text(char.to_string().as_str(), Some(&paint)).1;
-                    println!("{}: {}", byte_idx, text_bounds.width());
                 }
                 next_line_start += config.line_height;
             }
