@@ -13,7 +13,7 @@ pub fn Editor(colors: Colors) -> Element {
     let document = Document::new(
         "fn main() {\n    let x = \"Hello!\\n\";\n    println!(\"{x}\");\n}".to_string(),
     );
-    let canvas = use_canvas();
+    // let canvas = use_canvas();
 
     rsx! {
         rect {
