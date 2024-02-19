@@ -22,7 +22,6 @@ pub fn Editor(colors: Colors) -> Element {
     let canvas = use_canvas(&document, |document| {
         Box::new(move |canvas, _, region| {
             let rope = document.rope.clone();
-            println!("{:?}", region.center());
             canvas.translate((region.min_x(), region.min_y()));
 
             let mut text_paint = Paint::default();
@@ -35,7 +34,7 @@ pub fn Editor(colors: Colors) -> Element {
 
             canvas.draw_str(
                 format!("{}", rope.to_string()),
-                ((region.max_x() / 2.0 - 120.0), region.max_y() / 2.0),
+                (0.0 + 16.0, 0.0 + 16.),
                 &font,
                 &text_paint,
             );
