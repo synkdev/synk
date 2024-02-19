@@ -19,12 +19,10 @@ pub fn Editor(colors: Colors) -> Element {
         platform.send(EventMessage::RequestRerender).unwrap();
     });
 
-    let canvas = use_canvas((), |_| {
+    let canvas = use_canvas(&document, |document| {
         Box::new(move |canvas, collection, region: Rect<f32, Measure>| {
-            let rope = &document.rope.clone();
+            let rope = document.rope.clone();
             canvas.translate((0.0, 0.0));
-
-            let font = collection.default_fallback();
 
             let mut text_paint = Paint::default();
             text_paint.set_anti_alias(true);
