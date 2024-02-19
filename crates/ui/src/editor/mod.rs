@@ -9,7 +9,12 @@ use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator
 
 #[allow(non_snake_case)]
 #[component]
-pub fn Editor(colors: Colors) -> Element {
+pub fn Editor(
+    colors: Colors,
+    line_height: f32,
+    font_family: &'static str,
+    font_size: f32,
+) -> Element {
     let document = Document::new(
         "fn main() {\n    let x = \"Hello!\\n\";\n    println!(\"{x}\");\n}".to_string(),
     );
