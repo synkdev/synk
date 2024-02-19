@@ -41,7 +41,7 @@ pub fn SynkUI() -> Element {
             rect { width: "calc(100% - {sidebar_width})", height: "100%", direction: "vertical",
                 TabBar { colors: colors.clone().tab_bar }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
-                Editor { colors: colors.clone() }
+                Editor { colors: colors.clone(), line_height: 36.0, font_family: "JetBrains Mono", font_size: 16.0 }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
                 Statusbar { colors: colors.statusbar }
             }

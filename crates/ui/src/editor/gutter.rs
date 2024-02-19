@@ -5,7 +5,7 @@ use crate::colors::LineNumberColors;
 
 #[allow(non_snake_case)]
 #[component]
-pub fn Gutter(rope: Rope, colors: LineNumberColors) -> Element {
+pub fn Gutter(rope: Rope, colors: LineNumberColors, line_height: f32) -> Element {
     rsx! {
         rect { height: "100%", width: "50", direction: "vertical", background: "{colors.line_numbers_bg}",
             for (line_number , _) in rope.lines().enumerate() {

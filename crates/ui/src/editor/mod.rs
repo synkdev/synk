@@ -54,7 +54,7 @@ pub fn Editor(
             width: "100%",
             height: "calc(100% - 84)",
             direction: "horizontal",
-            Gutter { rope: document.rope.clone(), colors: colors.line_numbers }
+            Gutter { rope: document.rope.clone(), colors: colors.line_numbers, line_height }
             VerticalSeparator { interactive: false, reverse: false, colors: colors.separator }
             rect {
                 width: "calc(100% - 50)",
