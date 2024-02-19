@@ -38,7 +38,7 @@ pub fn SynkUI() -> Element {
                 callback: sidebar_width,
                 reverse: false
             }
-            rect { width: "100%", height: "100%", direction: "vertical",
+            rect { width: "calc(100% - {sidebar_width})", height: "100%", direction: "vertical",
                 TabBar { colors: colors.clone().tab_bar }
                 HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
                 Editor { colors: colors.clone() }

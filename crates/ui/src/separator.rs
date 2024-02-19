@@ -55,20 +55,19 @@ pub fn VerticalSeparator(
             rect {
                 width: "12",
                 height: "100%",
+                direction: "horizontal",
                 onglobalmouseover,
                 onglobalclick,
                 onmousedown,
-                onmouseover: move |_| {hover_anim.read().start(); },
+                onmouseover: move |_| { hover_anim.read().start(); },
                 onmouseleave: move |_| {hover_anim.read().reverse();},
-                direction: "horizontal",
                 if reverse {
                     rect { height: "100%", width: "{width.read().as_f32()}", background: "{color.read().as_string()}" }
-                    rect { height: "100%", width: "calc(100% - {width.read().as_f32()})" }
+                    rect { height: "100%", width: "calc(100% - {width.read().as_f32()})", background: "{color.read().as_string()}" }
                 } else {
-                    rect { height: "100%", width: "{width.read().as_f32()}", background: "{color.read().as_string()}" }
-                    rect { height: "100%", width: "{width.read().as_f32()}" }
+                    rect { height: "100%", width: "calc(100% - {width.read().as_f32()})"}
+                    rect { height: "100%", width: "{width.read().as_f32()}", background: "{color.read().as_string()}"  }
                 }
-
             }
         }
     } else {
@@ -131,7 +130,7 @@ pub fn HorizontalSeparator(
                 onmouseleave: move |_| {hover_anim.read().reverse();},
                 direction: "horizontal",
                 if reverse {
-                    rect { width: "100%", height: "{height.read().as_f32()}", background: "{color.read().as_string()}" }
+                        rect { width: "100%", height: "{height.read().as_f32()}", background: "{color.read().as_string()}" }
                     rect { width: "100%", height: "calc(100% - {height.read().as_f32()})" }
                 } else {
                     rect { width: "100%", height: "calc(100% - {height.read().as_f32()})" }

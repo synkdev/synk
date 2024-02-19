@@ -189,9 +189,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.79"
+version = "1.0.80"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "080e9890a082662b09c1ad45f567faeeb47f22b5fb23895fbe1e651e718e25ca"
+checksum = "5ad32ce52e4161730f7098c077cd2ed6229b5804ccf99e5366be1ab72a98b4e1"
 
 [[package]]
 name = "anymap"
@@ -1002,7 +1002,7 @@ dependencies = [
 [[package]]
 name = "dioxus"
 version = "0.4.3"
-source = "git+https://github.com/dioxuslabs/dioxus?branch=master#a454f2c7ac239933bb4d5cd184c8a549190070f1"
+source = "git+https://github.com/dioxuslabs/dioxus?branch=master#3fef42a43bebcdfbce8717b8c99915f93403c4d8"
 dependencies = [
  "dioxus-core 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
  "dioxus-core-macro 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
@@ -1046,7 +1046,7 @@ dependencies = [
 [[package]]
 name = "dioxus-core"
 version = "0.4.3"
-source = "git+https://github.com/dioxuslabs/dioxus?branch=master#a454f2c7ac239933bb4d5cd184c8a549190070f1"
+source = "git+https://github.com/dioxuslabs/dioxus?branch=master#3fef42a43bebcdfbce8717b8c99915f93403c4d8"
 dependencies = [
  "futures-channel",
  "futures-util",
@@ -1073,7 +1073,7 @@ dependencies = [
 [[package]]
 name = "dioxus-core-macro"
 version = "0.4.3"
-source = "git+https://github.com/dioxuslabs/dioxus?branch=master#a454f2c7ac239933bb4d5cd184c8a549190070f1"
+source = "git+https://github.com/dioxuslabs/dioxus?branch=master#3fef42a43bebcdfbce8717b8c99915f93403c4d8"
 dependencies = [
  "constcat",
  "convert_case",
@@ -1107,7 +1107,7 @@ checksum = "2ea539174bb236e0e7dc9c12b19b88eae3cb574dedbd0252a2d43ea7e6de13e2"
 [[package]]
 name = "dioxus-hooks"
 version = "0.4.3"
-source = "git+https://github.com/dioxuslabs/dioxus?branch=master#a454f2c7ac239933bb4d5cd184c8a549190070f1"
+source = "git+https://github.com/dioxuslabs/dioxus?branch=master#3fef42a43bebcdfbce8717b8c99915f93403c4d8"
 dependencies = [
  "dioxus-core 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
  "dioxus-debug-cell",
@@ -1248,7 +1248,7 @@ dependencies = [
 [[package]]
 name = "dioxus-rsx"
 version = "0.4.3"
-source = "git+https://github.com/dioxuslabs/dioxus?branch=master#a454f2c7ac239933bb4d5cd184c8a549190070f1"
+source = "git+https://github.com/dioxuslabs/dioxus?branch=master#3fef42a43bebcdfbce8717b8c99915f93403c4d8"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1273,7 +1273,7 @@ dependencies = [
 [[package]]
 name = "dioxus-signals"
 version = "0.4.3"
-source = "git+https://github.com/dioxuslabs/dioxus?branch=master#a454f2c7ac239933bb4d5cd184c8a549190070f1"
+source = "git+https://github.com/dioxuslabs/dioxus?branch=master#3fef42a43bebcdfbce8717b8c99915f93403c4d8"
 dependencies = [
  "dioxus-core 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
  "flume",
@@ -1673,6 +1673,33 @@ dependencies = [
 [[package]]
 name = "freya"
 version = "0.1.8"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "dioxus 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hot-reload",
+ "dioxus-native-core",
+ "dioxus-router",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-signals 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-components 0.1.5 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-core 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-dom 0.1.2 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-elements 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-engine 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-hooks 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-node-state 0.1.4 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-renderer 0.1.6 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "tokio",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+]
+
+[[package]]
+name = "freya"
+version = "0.1.8"
 source = "git+https://github.com/synkdev/freya?branch=main#bebe6e39b58243087e55068995b4eb95052b5cb5"
 dependencies = [
  "dioxus 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
@@ -1684,17 +1711,35 @@ dependencies = [
  "dioxus-router",
  "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
  "dioxus-signals 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
- "freya-common",
- "freya-components",
- "freya-core",
- "freya-dom",
- "freya-elements",
- "freya-engine",
- "freya-hooks",
- "freya-node-state",
- "freya-renderer",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-components 0.1.5 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-core 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-dom 0.1.2 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-elements 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-engine 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-hooks 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-node-state 0.1.4 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-renderer 0.1.6 (git+https://github.com/synkdev/freya?branch=main)",
  "tokio",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+]
+
+[[package]]
+name = "freya-common"
+version = "0.1.0"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "accesskit",
+ "accesskit_winit",
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-native-core",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "euclid",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "uuid",
+ "winit",
 ]
 
 [[package]]
@@ -1710,8 +1755,30 @@ dependencies = [
  "dioxus-native-core",
  "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
  "euclid",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "uuid",
+ "winit",
+]
+
+[[package]]
+name = "freya-components"
+version = "0.1.5"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "dioxus 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-router",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-core 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-elements 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-engine 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-hooks 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-node-state 0.1.4 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "futures-util",
+ "open",
+ "reqwest",
+ "tokio",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "tracing",
  "winit",
 ]
 
@@ -1722,18 +1789,44 @@ source = "git+https://github.com/synkdev/freya?branch=main#bebe6e39b58243087e550
 dependencies = [
  "dioxus 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
  "dioxus-router",
- "freya-common",
- "freya-core",
- "freya-elements",
- "freya-engine",
- "freya-hooks",
- "freya-node-state",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-core 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-elements 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-engine 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-hooks 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-node-state 0.1.4 (git+https://github.com/synkdev/freya?branch=main)",
  "futures-util",
  "open",
  "reqwest",
  "tokio",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "tracing",
+ "winit",
+]
+
+[[package]]
+name = "freya-core"
+version = "0.1.3"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "accesskit",
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-native-core",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-dom 0.1.2 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-elements 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-engine 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-node-state 0.1.4 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "itertools 0.11.0",
+ "rustc-hash",
+ "smallvec",
+ "tokio",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "tracing",
+ "uuid",
  "winit",
 ]
 
@@ -1748,19 +1841,38 @@ dependencies = [
  "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
  "dioxus-native-core",
  "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
- "freya-common",
- "freya-dom",
- "freya-elements",
- "freya-engine",
- "freya-node-state",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-dom 0.1.2 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-elements 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-engine 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-node-state 0.1.4 (git+https://github.com/synkdev/freya?branch=main)",
  "itertools 0.11.0",
  "rustc-hash",
  "smallvec",
  "tokio",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "tracing",
  "uuid",
  "winit",
+]
+
+[[package]]
+name = "freya-dom"
+version = "0.1.2"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-native-core",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-engine 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-node-state 0.1.4 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "rustc-hash",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "tracing",
+ "uuid",
 ]
 
 [[package]]
@@ -1773,13 +1885,31 @@ dependencies = [
  "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
  "dioxus-native-core",
  "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
- "freya-common",
- "freya-engine",
- "freya-node-state",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-engine 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-node-state 0.1.4 (git+https://github.com/synkdev/freya?branch=main)",
  "rustc-hash",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "tracing",
  "uuid",
+]
+
+[[package]]
+name = "freya-elements"
+version = "0.1.0"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "accesskit",
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-native-core",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "keyboard-types",
+ "tokio",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "winit",
 ]
 
 [[package]]
@@ -1793,11 +1923,21 @@ dependencies = [
  "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
  "dioxus-native-core",
  "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
- "freya-common",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "keyboard-types",
  "tokio",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "winit",
+]
+
+[[package]]
+name = "freya-engine"
+version = "0.1.3"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "bitflags 2.4.2",
+ "glutin",
+ "skia-safe",
 ]
 
 [[package]]
@@ -1808,6 +1948,36 @@ dependencies = [
  "bitflags 2.4.2",
  "glutin",
  "skia-safe",
+]
+
+[[package]]
+name = "freya-hooks"
+version = "0.1.3"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "accesskit",
+ "bitflags 2.4.2",
+ "bytes",
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-native-core",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-signals 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-std",
+ "easer",
+ "euclid",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-core 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-elements 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-engine 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-node-state 0.1.4 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "paste",
+ "ropey 1.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tokio",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "uuid",
+ "winit",
 ]
 
 [[package]]
@@ -1827,17 +1997,41 @@ dependencies = [
  "dioxus-std",
  "easer",
  "euclid",
- "freya-common",
- "freya-core",
- "freya-elements",
- "freya-engine",
- "freya-node-state",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-core 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-elements 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-engine 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-node-state 0.1.4 (git+https://github.com/synkdev/freya?branch=main)",
  "paste",
  "ropey 1.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "uuid",
  "winit",
+]
+
+[[package]]
+name = "freya-node-state"
+version = "0.1.4"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "accesskit",
+ "bytes",
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-native-core",
+ "dioxus-native-core-macro",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-elements 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-engine 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "serde_json",
+ "shipyard",
+ "smallvec",
+ "tokio",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "uuid",
 ]
 
 [[package]]
@@ -1853,15 +2047,50 @@ dependencies = [
  "dioxus-native-core",
  "dioxus-native-core-macro",
  "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
- "freya-common",
- "freya-elements",
- "freya-engine",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-elements 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-engine 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
  "serde_json",
  "shipyard",
  "smallvec",
  "tokio",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "uuid",
+]
+
+[[package]]
+name = "freya-renderer"
+version = "0.1.6"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "accesskit",
+ "accesskit_winit",
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-core-macro 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hooks 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-hot-reload",
+ "dioxus-native-core",
+ "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "freya-common 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-core 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-dom 0.1.2 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-elements 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-engine 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-hooks 0.1.3 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "freya-node-state 0.1.4 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "futures-task",
+ "futures-util",
+ "gl",
+ "glutin",
+ "glutin-winit",
+ "image",
+ "pin-utils",
+ "raw-window-handle 0.5.2",
+ "tokio",
+ "torin 0.1.0 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
+ "tracing",
+ "uuid",
+ "winit",
 ]
 
 [[package]]
@@ -1877,13 +2106,13 @@ dependencies = [
  "dioxus-hot-reload",
  "dioxus-native-core",
  "dioxus-rsx 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
- "freya-common",
- "freya-core",
- "freya-dom",
- "freya-elements",
- "freya-engine",
- "freya-hooks",
- "freya-node-state",
+ "freya-common 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-core 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-dom 0.1.2 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-elements 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-engine 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-hooks 0.1.3 (git+https://github.com/synkdev/freya?branch=main)",
+ "freya-node-state 0.1.4 (git+https://github.com/synkdev/freya?branch=main)",
  "futures-task",
  "futures-util",
  "gl",
@@ -1893,7 +2122,7 @@ dependencies = [
  "pin-utils",
  "raw-window-handle 0.5.2",
  "tokio",
- "torin",
+ "torin 0.1.0 (git+https://github.com/synkdev/freya?branch=main)",
  "tracing",
  "uuid",
  "winit",
@@ -2010,7 +2239,7 @@ dependencies = [
 [[package]]
 name = "generational-box"
 version = "0.4.3"
-source = "git+https://github.com/dioxuslabs/dioxus?branch=master#a454f2c7ac239933bb4d5cd184c8a549190070f1"
+source = "git+https://github.com/dioxuslabs/dioxus?branch=master#3fef42a43bebcdfbce8717b8c99915f93403c4d8"
 dependencies = [
  "parking_lot",
 ]
@@ -3631,9 +3860,9 @@ dependencies = [
 
 [[package]]
 name = "ryu"
-version = "1.0.16"
+version = "1.0.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f98d2aa92eebf49b69786be48e4477826b256916e84a57ff2a4f21923b48eb4c"
+checksum = "e86697c916019a8588c99b5fac3cead74ec0b4b819707a682fd4d23fa0ce1ba1"
 
 [[package]]
 name = "same-file"
@@ -3703,9 +3932,9 @@ dependencies = [
 
 [[package]]
 name = "semver"
-version = "1.0.21"
+version = "1.0.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b97ed7a9823b74f99c7742f5336af7be5ecd3eeafcb1507d1fa93347b1d589b0"
+checksum = "92d43fe69e652f3df9bdc2b85b2854a0825b86e4fb76bc44d945137d053639ca"
 dependencies = [
  "serde",
 ]
@@ -4042,7 +4271,7 @@ dependencies = [
  "anyhow",
  "core",
  "dioxus 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
- "freya",
+ "freya 0.1.8 (git+https://github.com/synkdev/freya?branch=main)",
  "ui",
  "winit",
 ]
@@ -4279,6 +4508,18 @@ dependencies = [
 [[package]]
 name = "torin"
 version = "0.1.0"
+source = "git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas#985daeb156cf74805b385ce5585fa3fca4ee57ee"
+dependencies = [
+ "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
+ "dioxus-native-core",
+ "euclid",
+ "rustc-hash",
+ "tracing",
+]
+
+[[package]]
+name = "torin"
+version = "0.1.0"
 source = "git+https://github.com/synkdev/freya?branch=main#bebe6e39b58243087e55068995b4eb95052b5cb5"
 dependencies = [
  "dioxus-core 0.4.3 (git+https://github.com/DioxusLabs/dioxus?rev=ef101dd876ee8ecdd702a7e22addfd47f2ebd892)",
@@ -4382,7 +4623,7 @@ dependencies = [
  "cc",
  "core",
  "dioxus 0.4.3 (git+https://github.com/dioxuslabs/dioxus?branch=master)",
- "freya",
+ "freya 0.1.8 (git+https://github.com/marc2332/freya?branch=feat/mutable-font-collection-on-use-canvas)",
  "ropey 1.6.1 (git+https://github.com/cessen/ropey)",
  "skia-safe",
  "tree-sitter",
