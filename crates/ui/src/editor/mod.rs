@@ -20,9 +20,10 @@ pub fn Editor(colors: Colors) -> Element {
     });
 
     let canvas = use_canvas(&document, |document| {
-        Box::new(move |canvas, collection, region: Rect<f32, Measure>| {
+        Box::new(move |canvas, _, region: Rect<f32, Measure>| {
             let rope = document.rope.clone();
-            canvas.translate((0.0, 0.0));
+            println!("{:?}", region.center());
+            canvas.translate((region.min_x(), region.min_y()));
 
             let mut text_paint = Paint::default();
             text_paint.set_anti_alias(true);
@@ -44,20 +45,20 @@ pub fn Editor(colors: Colors) -> Element {
     });
 
     rsx! {
+        rect {
+            background: "{colors.editor.background}",
+            width: "100%",
+            height: "calc(100% - 84)",
+            direction: "horizontal",
+            Gutter { rope: document.rope.clone(), colors: colors.line_numbers }
+            VerticalSeparator { interactive: false, reverse: false, colors: colors.separator }
             rect {
-                background: "{colors.editor.background}",
-                width: "100%",
-                height: "calc(100% - 84)",
-                direction: "horizontal",
-                Gutter { rope: document.rope.clone(), colors: colors.line_numbers }
-                VerticalSeparator { interactive: false, reverse: false, colors: colors.separator }
-                Canvas {
-                    theme: theme_with!(
-        CanvasTheme { background : "black".into(), width : "calc(100% - 50)".into(), height :
-        "100%".into(), }
-    ),
-                    canvas
-                }
+                width: "calc(100% - 50)",
+                height: "100%",
+                direction: "vertical",
+                overflow: "clip",
+                canvas_reference: canvas.attribute()
             }
         }
+    }
 }
