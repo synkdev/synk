@@ -20,7 +20,7 @@ pub fn Editor(colors: Colors) -> Element {
     });
 
     let canvas = use_canvas(&document, |document| {
-        Box::new(move |canvas, _, region: Rect<f32, Measure>| {
+        Box::new(move |canvas, _, region| {
             let rope = document.rope.clone();
             println!("{:?}", region.center());
             canvas.translate((region.min_x(), region.min_y()));
