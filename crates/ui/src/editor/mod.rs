@@ -1,10 +1,11 @@
 pub mod document;
 pub mod gutter;
 
+use freya::torin::*;
 use freya::{common::EventMessage, prelude::*};
 use skia_safe::{
     font_style::{Slant, Weight, Width},
-    Color, Font, FontMgr, FontStyle, Paint, Typeface,
+    Color, Font, FontMgr, FontStyle, Paint,
 };
 use synk_core::document::Document;
 
@@ -41,6 +42,14 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 .unwrap();
             let font = Font::from_typeface(font_family, config.font_size);
 
+            for line in rope.lines() {
+                let torin_rect = Node::from_size_and_direction(
+                    Size::Pixels(Length::new(region.width())),
+                    Size::Pixels(Length::new(config.line_height)),
+                    DirectionMode::Horizontal,
+                );
+            }
+
             canvas.restore();
         })
     });
@@ -62,6 +71,7 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 height: "100%",
                 direction: "vertical",
                 overflow: "clip",
+                onclick: move |_| { println!("clicked") },
                 canvas_reference: canvas.attribute()
             }
         }
