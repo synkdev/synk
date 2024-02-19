@@ -2,7 +2,10 @@ pub mod document;
 pub mod gutter;
 
 use freya::{common::EventMessage, prelude::*};
-use skia_safe::{Color, Font, FontStyle, Paint, Typeface};
+use skia_safe::{
+    font_style::{Slant, Weight, Width},
+    Color, Font, FontMgr, FontStyle, Paint, Typeface,
+};
 use synk_core::document::Document;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
@@ -24,29 +27,27 @@ pub fn Editor(
         platform.send(EventMessage::RequestRerender).unwrap();
     });
 
-    let canvas = use_canvas(&document, |document| {
-        Box::new(move |canvas, _, region| {
-            let rope = document.rope.clone();
-            canvas.translate((region.min_x(), region.min_y()));
+    let canvas = use_canvas(
+        &(document, font_size, font_family, line_height),
+        |document, font_size, font_family, line_height| {
+            Box::new(move |canvas, _, region| {
+                let rope = document.rope.clone();
+                canvas.translate((region.min_x(), region.min_y()));
 
-            let mut text_paint = Paint::default();
-            text_paint.set_anti_alias(true);
-            text_paint.set_color(Color::WHITE);
-            let font = Font::new(
-                Typeface::from_name("JetBrains Mono", FontStyle::default()).unwrap(),
-                16.0,
-            );
+                let mut paint = Paint::default();
+                paint.set_anti_alias(true);
+                paint.set_color(Color::WHITE);
 
-            canvas.draw_str(
-                format!("{}", rope.to_string()),
-                (0.0 + 16.0, 0.0 + 16.),
-                &font,
-                &text_paint,
-            );
+                let font_style = FontStyle::new(Weight::NORMAL, Width::NORMAL, Slant::Upright);
+                let font_family = FontMgr::new()
+                    .match_family_style(font_family, font_style)
+                    .unwrap();
+                let font = Font::from_typeface(font_family, font_size);
 
-            canvas.restore();
-        })
-    });
+                canvas.restore();
+            })
+        },
+    );
 
     rsx! {
         rect {
