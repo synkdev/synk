@@ -31,7 +31,7 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
     let canvas = use_canvas(&config, |config| {
         Box::new(move |canvas, _, region| {
             let rope = config.document.rope.clone();
-            let layout = Torin::new();
+            let layout = Torin::<usize>::new();
             canvas.translate((region.min_x(), region.min_y()));
 
             let mut paint = Paint::default();
