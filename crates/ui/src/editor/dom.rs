@@ -4,10 +4,10 @@ use freya::torin::{dom_adapter::DOMAdapter, node::Node};
 
 #[derive(Clone)]
 pub struct EditorLine {
-    pub parent: Option<Node>,
-    pub children: Vec<Node>,
+    pub parent: Option<usize>,
+    pub children: Vec<usize>,
     pub node: Node,
-    pub height: f32,
+    pub height: u16,
 }
 
 #[derive(Default)]
@@ -16,14 +16,13 @@ pub struct EditorDom {
 }
 
 impl EditorDom {
-    #[inline]
     pub fn add(
         &mut self,
         line_id: usize,
-        children: Vec<Node>,
+        children: Vec<usize>,
         line: Node,
         line_height: f32,
-        parent: Option<Node>,
+        parent: Option<usize>,
     ) {
         self.lines.insert(
             line_id,
@@ -34,5 +33,29 @@ impl EditorDom {
                 node: line,
             },
         );
+    }
+}
+
+impl DOMAdapter<usize> for EditorDom {
+    fn children_of(&mut self, node_id: &usize) -> Vec<usize> {
+        self.lines
+            .get(node_id)
+            .map(|c| c.children.clone())
+            .unwrap_or_default()
+    }
+    fn get_node(&self, node_id: &usize) -> Option<Node> {
+        self.lines.get(node_id).map(|c| c.node)
+    }
+    fn height(&self, node_id: &usize) -> Option<u16> {
+        self.lines.get(node_id).map(|c| c.height)
+    }
+    fn is_node_valid(&mut self, node_id: &usize) -> bool {
+        true
+    }
+    fn parent_of(&self, node_id: &usize) -> Option<usize> {
+        self.lines.get(node_id).and_then(|c| c.parent)
+    }
+    fn closest_common_parent(&self, node_id_a: &usize, node_id_b: &usize) -> Option<usize> {
+        None
     }
 }
