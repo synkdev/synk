@@ -21,7 +21,7 @@ impl EditorDom {
         line_id: usize,
         children: Vec<usize>,
         line: Node,
-        line_height: f32,
+        line_height: u16,
         parent: Option<usize>,
     ) {
         self.lines.insert(
@@ -44,18 +44,18 @@ impl DOMAdapter<usize> for EditorDom {
             .unwrap_or_default()
     }
     fn get_node(&self, node_id: &usize) -> Option<Node> {
-        self.lines.get(node_id).map(|c| c.node)
+        self.lines.get(node_id).map(|c| c.node.clone())
     }
     fn height(&self, node_id: &usize) -> Option<u16> {
         self.lines.get(node_id).map(|c| c.height)
     }
-    fn is_node_valid(&mut self, node_id: &usize) -> bool {
+    fn is_node_valid(&mut self, _: &usize) -> bool {
         true
     }
     fn parent_of(&self, node_id: &usize) -> Option<usize> {
         self.lines.get(node_id).and_then(|c| c.parent)
     }
-    fn closest_common_parent(&self, node_id_a: &usize, node_id_b: &usize) -> Option<usize> {
+    fn closest_common_parent(&self, _: &usize, _: &usize) -> Option<usize> {
         None
     }
 }
