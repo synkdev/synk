@@ -1,8 +1,13 @@
 use std::collections::HashMap;
 
-use freya::torin::{
-    custom_measurer::LayoutMeasurer, dom_adapter::DOMAdapter, geometry::Size2D, node::Node,
+use freya::{
+    hooks::Line,
+    torin::{
+        custom_measurer::LayoutMeasurer, dom_adapter::DOMAdapter, geometry::Size2D, node::Node,
+    },
 };
+use ropey::RopeSlice;
+use skia_safe::Font;
 
 pub struct TextMeasurer {
     dom: EditorDom,
@@ -27,26 +32,32 @@ impl LayoutMeasurer<usize> for TextMeasurer {
 }
 
 #[derive(Clone)]
-pub enum NodeType {
-    Line,
-    Char,
+pub struct LineChar<'a> {
+    char_: RopeSlice<'a>,
+    font: Font,
 }
 
 #[derive(Clone)]
-pub struct EditorNode {
+pub enum NodeType<'a> {
+    Line { chars: Vec<LineChar<'a>> },
+    Char(LineChar<'a>),
+}
+
+#[derive(Clone)]
+pub struct EditorNode<'a> {
     pub parent: Option<usize>,
     pub children: Vec<usize>,
     pub node: Node,
     pub height: u16,
-    pub node_type: NodeType,
+    pub node_type: NodeType<'a>,
 }
 
 #[derive(Default)]
-pub struct EditorDom {
-    pub nodes: HashMap<usize, EditorNode>,
+pub struct EditorDom<'a> {
+    pub nodes: HashMap<usize, EditorNode<'a>>,
 }
 
-impl EditorDom {
+impl<'a> EditorDom<'a> {
     pub fn add(
         &mut self,
         line_id: usize,
@@ -73,7 +84,7 @@ impl EditorDom {
     }
 }
 
-impl DOMAdapter<usize> for EditorDom {
+impl<'a> DOMAdapter<usize> for EditorDom<'a> {
     fn children_of(&mut self, node_id: &usize) -> Vec<usize> {
         self.nodes
             .get(node_id)
