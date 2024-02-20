@@ -7,10 +7,12 @@ use freya::{
     },
 };
 use ropey::RopeSlice;
-use skia_safe::Font;
+use skia_safe::{Font, Paint};
 
 pub struct TextMeasurer<'a> {
     dom: EditorDom<'a>,
+    font: Font,
+    paint: Paint,
 }
 
 impl<'a> LayoutMeasurer<usize> for TextMeasurer<'a> {
@@ -23,24 +25,36 @@ impl<'a> LayoutMeasurer<usize> for TextMeasurer<'a> {
     ) -> Option<Size2D> {
         if let Some(node) = self.dom.nodes.get(&node_id) {
             match &node.node_type {
-                NodeType::Line { chars } => {}
-                NodeType::Char(char) => {}
+                NodeType::Line { chars } => {
+                    let mut line_len = Size2D::zero();
+                    for char in chars {
+                        let measure = measure_char(*char, &self.font, &self.paint);
+                        line_len += measure
+                    }
+                    return Some(line_len);
+                }
+                NodeType::Char(char) => return Some(measure_char(*char, &self.font, &self.paint)),
             }
         }
         None
     }
 }
 
+pub fn measure_char(char: RopeSlice<'_>, font: &Font, paint: &Paint) -> Size2D {
+    let text_bounds = font.measure_text(char.to_string().as_str(), Some(paint)).1;
+    Size2D::new(text_bounds.width(), text_bounds.height())
+}
+
 #[derive(Clone)]
 pub struct LineChar<'a> {
-    char: RopeSlice<'a>,
-    font: Font,
+    pub char: RopeSlice<'a>,
+    pub font: Font,
 }
 
 #[derive(Clone)]
 pub enum NodeType<'a> {
-    Line { chars: Vec<LineChar<'a>> },
-    Char(LineChar<'a>),
+    Line { chars: Vec<RopeSlice<'a>> },
+    Char(RopeSlice<'a>),
 }
 
 #[derive(Clone)]
