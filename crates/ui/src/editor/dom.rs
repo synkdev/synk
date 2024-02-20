@@ -9,11 +9,11 @@ use freya::{
 use ropey::RopeSlice;
 use skia_safe::Font;
 
-pub struct TextMeasurer {
-    dom: EditorDom,
+pub struct TextMeasurer<'a> {
+    dom: EditorDom<'a>,
 }
 
-impl LayoutMeasurer<usize> for TextMeasurer {
+impl<'a> LayoutMeasurer<usize> for TextMeasurer<'a> {
     fn measure(
         &mut self,
         node_id: usize,
@@ -22,9 +22,9 @@ impl LayoutMeasurer<usize> for TextMeasurer {
         _available_parent_area: &freya::prelude::Area,
     ) -> Option<Size2D> {
         if let Some(node) = self.dom.nodes.get(&node_id) {
-            match node.node_type {
-                NodeType::Line => {}
-                NodeType::Char => {}
+            match &node.node_type {
+                NodeType::Line { chars } => {}
+                NodeType::Char(char) => {}
             }
         }
         None
@@ -33,7 +33,7 @@ impl LayoutMeasurer<usize> for TextMeasurer {
 
 #[derive(Clone)]
 pub struct LineChar<'a> {
-    char_: RopeSlice<'a>,
+    char: RopeSlice<'a>,
     font: Font,
 }
 
@@ -64,7 +64,7 @@ impl<'a> EditorDom<'a> {
         children: Vec<usize>,
         line: Node,
         parent: Option<usize>,
-        node_type: NodeType,
+        node_type: NodeType<'a>,
     ) {
         let parent_height = parent
             .map(|p| self.nodes.get(&p).unwrap().height)
