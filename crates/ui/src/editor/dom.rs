@@ -1,6 +1,25 @@
 use std::collections::HashMap;
 
-use freya::torin::{dom_adapter::DOMAdapter, node::Node};
+use freya::torin::{
+    custom_measurer::LayoutMeasurer, dom_adapter::DOMAdapter, geometry::Size2D, node::Node,
+};
+
+pub struct TextMeasurer {
+    dom: EditorDom,
+}
+
+impl LayoutMeasurer<usize> for TextMeasurer {
+    fn measure(
+        &mut self,
+        node_id: usize,
+        node: &Node,
+        parent_area: &freya::prelude::Area,
+        available_parent_area: &freya::prelude::Area,
+    ) -> Option<Size2D> {
+        if let Some(line) = self.dom.get_node(&node_id) {}
+        None
+    }
+}
 
 #[derive(Clone)]
 pub struct EditorLine {
