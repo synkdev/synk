@@ -1,6 +1,6 @@
 pub mod document;
+pub mod dom;
 pub mod gutter;
-pub mod dom; 
 
 use freya::torin::*;
 use freya::{common::EventMessage, prelude::*};
@@ -31,8 +31,10 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
 
     let canvas = use_canvas(&config, |config| {
         Box::new(move |canvas, _, region| {
-            let rope = config.document.rope.clone();
+            // Dom stuff
             let torin = Torin::<usize>::new();
+
+            let rope = config.document.rope.clone();
             canvas.translate((region.min_x(), region.min_y()));
 
             let mut paint = Paint::default();

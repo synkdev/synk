@@ -16,20 +16,18 @@ pub struct EditorDom {
 }
 
 impl EditorDom {
-    pub fn add(
-        &mut self,
-        line_id: usize,
-        children: Vec<usize>,
-        line: Node,
-        line_height: u16,
-        parent: Option<usize>,
-    ) {
+    pub fn add(&mut self, line_id: usize, children: Vec<usize>, line: Node, parent: Option<usize>) {
+        let parent_height = parent
+            .map(|p| self.lines.get(&p).unwrap().height)
+            .unwrap_or(0);
+
+        let height = parent_height + 1;
         self.lines.insert(
             line_id,
             EditorLine {
                 parent,
                 children,
-                height: line_height,
+                height,
                 node: line,
             },
         );
