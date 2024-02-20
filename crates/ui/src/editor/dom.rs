@@ -21,6 +21,7 @@ impl LayoutMeasurer<usize> for TextMeasurer {
     }
 }
 
+#[derive(Clone)]
 pub enum NodeType {
     Line,
     Char,
