@@ -21,8 +21,13 @@ impl LayoutMeasurer<usize> for TextMeasurer {
     }
 }
 
+pub enum NodeType {
+    Line,
+    Char,
+}
+
 #[derive(Clone)]
-pub struct EditorLine {
+pub struct EditorNode {
     pub parent: Option<usize>,
     pub children: Vec<usize>,
     pub node: Node,
@@ -31,7 +36,7 @@ pub struct EditorLine {
 
 #[derive(Default)]
 pub struct EditorDom {
-    pub lines: HashMap<usize, EditorLine>,
+    pub lines: HashMap<usize, EditorNode>,
 }
 
 impl EditorDom {
@@ -43,7 +48,7 @@ impl EditorDom {
         let height = parent_height + 1;
         self.lines.insert(
             line_id,
-            EditorLine {
+            EditorNode {
                 parent,
                 children,
                 height,
