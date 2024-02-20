@@ -12,12 +12,15 @@ impl LayoutMeasurer<usize> for TextMeasurer {
     fn measure(
         &mut self,
         node_id: usize,
-        node: &Node,
-        parent_area: &freya::prelude::Area,
-        available_parent_area: &freya::prelude::Area,
+        _node: &Node,
+        _parent_area: &freya::prelude::Area,
+        _available_parent_area: &freya::prelude::Area,
     ) -> Option<Size2D> {
         if let Some(node) = self.dom.nodes.get(&node_id) {
-            match node.node_type {}
+            match node.node_type {
+                NodeType::Line => {}
+                NodeType::Char => {}
+            }
         }
         None
     }
