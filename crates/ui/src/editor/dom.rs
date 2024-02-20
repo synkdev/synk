@@ -32,6 +32,7 @@ pub struct EditorNode {
     pub children: Vec<usize>,
     pub node: Node,
     pub height: u16,
+    pub node_type: NodeType,
 }
 
 #[derive(Default)]
@@ -40,7 +41,14 @@ pub struct EditorDom {
 }
 
 impl EditorDom {
-    pub fn add(&mut self, line_id: usize, children: Vec<usize>, line: Node, parent: Option<usize>) {
+    pub fn add(
+        &mut self,
+        line_id: usize,
+        children: Vec<usize>,
+        line: Node,
+        parent: Option<usize>,
+        node_type: NodeType,
+    ) {
         let parent_height = parent
             .map(|p| self.lines.get(&p).unwrap().height)
             .unwrap_or(0);
@@ -53,6 +61,7 @@ impl EditorDom {
                 children,
                 height,
                 node: line,
+                node_type,
             },
         );
     }
