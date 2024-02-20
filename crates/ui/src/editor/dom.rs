@@ -16,7 +16,9 @@ impl LayoutMeasurer<usize> for TextMeasurer {
         parent_area: &freya::prelude::Area,
         available_parent_area: &freya::prelude::Area,
     ) -> Option<Size2D> {
-        if let Some(line) = self.dom.get_node(&node_id) {}
+        if let Some(node) = self.dom.nodes.get(&node_id) {
+            match node.node_type {}
+        }
         None
     }
 }
