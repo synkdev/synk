@@ -46,13 +46,14 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
             let font = Font::from_typeface(font_family, config.font_size);
 
             // Dom stuff
-            let torin = Torin::<usize>::new();
+            let mut torin = Torin::<usize>::new();
             let mut dom = EditorDom::default();
-            let measurer = Some(TextMeasurer {
+            let mut measurer = Some(TextMeasurer {
                 font: &font,
                 paint: &paint,
                 dom: &dom,
             });
+            let mut was_measured = false;
 
             // Add root node for the editor
             dom.add(
@@ -69,34 +70,42 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 dom::NodeType::Root,
             );
 
-            let mut next_line_start = region.min_y();
+            // let mut next_line_start = region.min_y();
 
-            for (line_idx, line) in rope.lines().enumerate() {
-                dom.add(
-                    line_idx,
-                    vec![2],
-                    Node::from_size_and_direction(
-                        Size::Pixels(Length::new(region.width())),
-                        Size::Pixels(Length::new(config.line_height)),
-                        DirectionMode::Horizontal,
-                    ),
-                    Some(0),
-                    dom::NodeType::Line {
-                        chars: line.chars().map(|c| c).collect(),
-                    },
-                );
-                for (byte_idx, char) in line.chars().enumerate() {
+            if !was_measured {
+                for (line_idx, line) in rope.lines().enumerate() {
                     dom.add(
-                        byte_idx,
-                        vec![],
-                        Node::default(),
-                        Some(line_idx),
-                        dom::NodeType::Char(char),
+                        line_idx,
+                        vec![2],
+                        Node::from_size_and_direction(
+                            Size::Pixels(Length::new(region.width())),
+                            Size::Pixels(Length::new(config.line_height)),
+                            DirectionMode::Horizontal,
+                        ),
+                        Some(0),
+                        dom::NodeType::Line {
+                            chars: line.chars().map(|c| c).collect(),
+                        },
                     );
-                    let text_blob = TextBlob::from_str(char.to_string().as_str(), &font);
-                    let text_bounds = font.measure_text(char.to_string().as_str(), Some(&paint)).1;
+                    for (byte_idx, char) in line.chars().enumerate() {
+                        dom.add(
+                            byte_idx,
+                            vec![],
+                            Node::default(),
+                            Some(line_idx),
+                            dom::NodeType::Char(char),
+                        );
+                        // let text_blob = TextBlob::from_str(char.to_string().as_str(), &font);
+                        // let text_bounds = font.measure_text(char.to_string().as_str(), Some(&paint)).1;
+                    }
+                    // next_line_start += config.line_height;
                 }
-                next_line_start += config.line_height;
+                torin.measure(
+                    0,
+                    Rect::new(region.min(), region.size),
+                    &mut measurer,
+                    &mut dom,
+                );
             }
 
             canvas.restore();
