@@ -78,6 +78,7 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 );
 
                 for (line_idx, line) in rope.lines().enumerate() {
+                    println!("adding line");
                     dom.add(
                         line_idx,
                         vec![2],
@@ -92,6 +93,7 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                         },
                     );
                     for (byte_idx, char) in line.chars().enumerate() {
+                        println!("adding char");
                         dom.add(
                             byte_idx,
                             vec![],
@@ -111,13 +113,12 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                     &mut dom,
                 );
                 was_measured = true;
-            }
-
-            if !was_drawn {
                 for (id, node) in &torin.results {
                     println!("{id:?} -> {:?}", node.area);
                 }
             }
+
+            if !was_drawn {}
 
             canvas.restore();
         })
