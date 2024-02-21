@@ -47,10 +47,27 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
 
             // Dom stuff
             let torin = Torin::<usize>::new();
-            let dom = EditorDom::default();
-            let measurer = Some(TextMeasurer { font, paint, dom });
-            
+            let mut dom = EditorDom::default();
+            let measurer = Some(TextMeasurer {
+                font: &font,
+                paint: &paint,
+                dom: &dom,
+            });
+
             // Add root node for the editor
+            dom.add(
+                0,
+                vec![1],
+                Node::from_size_and_alignments_and_direction(
+                    Size::Fill,
+                    Size::Fill,
+                    Alignment::Center,
+                    Alignment::Start,
+                    DirectionMode::Vertical,
+                ),
+                None,
+                dom::NodeType::Root,
+            );
 
             let mut next_line_start = region.min_y();
 

@@ -10,9 +10,9 @@ use ropey::RopeSlice;
 use skia_safe::{Font, Paint};
 
 pub struct TextMeasurer<'a> {
-    pub dom: EditorDom<'a>,
-    pub font: Font,
-    pub paint: Paint,
+    pub dom: &'a EditorDom<'a>,
+    pub font: &'a Font,
+    pub paint: &'a Paint,
 }
 
 impl<'a> LayoutMeasurer<usize> for TextMeasurer<'a> {
