@@ -27,7 +27,7 @@ pub struct EditorConfig {
 pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
     let platform = use_platform();
     use_effect(move || {
-        platform.send(EventMessage::RequestRerender).unwrap();
+        platform.send(EventMessage::RequestRerender).expect("Couldn't request rerender");
     });
 
     let canvas = use_canvas(&config, |config| {
