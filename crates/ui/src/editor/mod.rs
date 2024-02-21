@@ -61,7 +61,6 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
             // let mut next_line_start = region.min_y();
 
             if !was_measured {
-                println!("measuring");
                 // Add root node for the editor
                 dom.add(
                     0,
@@ -78,7 +77,6 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 );
 
                 for (line_idx, line) in rope.lines().enumerate() {
-                    println!("adding line");
                     dom.add(
                         line_idx,
                         vec![2],
@@ -108,7 +106,7 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 }
                 torin.measure(
                     0,
-                    Rect::new(region.min(), region.size),
+                    Rect::new(region.min(), Size2D::new(1000.0, 100.0)),
                     &mut measurer,
                     &mut dom,
                 );
