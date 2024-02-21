@@ -9,7 +9,6 @@ use skia_safe::{
 };
 use synk_core::document::Document;
 
-use crate::editor::dom::{EditorDom, TextMeasurer};
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 
 #[derive(Clone, PartialEq)]
