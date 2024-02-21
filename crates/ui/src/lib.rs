@@ -26,37 +26,37 @@ pub fn SynkUI() -> Element {
     );
 
     rsx! {
-            rect {
-                width: "100%",
-                height: "100%",
-                direction: "horizontal",
-                background: "{colors.background}",
-                color: "{colors.foreground}",
-                cross_align: "center",
-                font_family: "JetBrains Mono",
-                overflow: "clip",
-                Sidebar { width: sidebar_width, colors: colors.clone().sidebar }
-                VerticalSeparator {
-                    colors: colors.separator.clone(),
-                    interactive: true,
-                    callback: sidebar_width,
-                    reverse: false
+        rect {
+            width: "100%",
+            height: "100%",
+            direction: "horizontal",
+            background: "{colors.background}",
+            color: "{colors.foreground}",
+            cross_align: "center",
+            font_family: "JetBrains Mono",
+            overflow: "clip",
+            Sidebar { width: sidebar_width, colors: colors.clone().sidebar }
+            VerticalSeparator {
+                colors: colors.separator.clone(),
+                interactive: true,
+                callback: sidebar_width,
+                reverse: false
+            }
+            rect { width: "calc(100% - {sidebar_width})", height: "100%", direction: "vertical",
+                TabBar { colors: colors.clone().tab_bar }
+                HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
+                Editor {
+                    colors: colors.clone(),
+                    config: EditorConfig {
+    line_height: 36.0,
+    font_family: "JetBrains Mono",
+    font_size: 16.0,
+    document,
+}
                 }
-                rect { width: "calc(100% - {sidebar_width})", height: "100%", direction: "vertical",
-                    TabBar { colors: colors.clone().tab_bar }
-                    HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
-                    Editor {
-                        colors: colors.clone(),
-                        config: EditorConfig {
-        line_height: 36.0,
-        font_family: "JetBrains Mono",
-        font_size: 16.0,
-        document,
-    }
-                    }
-                    HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
-                    Statusbar { colors: colors.statusbar }
-                }
+                HorizontalSeparator { colors: colors.separator.clone(), interactive: false, reverse: false }
+                Statusbar { colors: colors.statusbar }
             }
         }
+    }
 }

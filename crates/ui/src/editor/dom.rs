@@ -10,9 +10,9 @@ use ropey::RopeSlice;
 use skia_safe::{Font, Paint};
 
 pub struct TextMeasurer<'a> {
-    dom: EditorDom<'a>,
-    font: Font,
-    paint: Paint,
+    pub dom: EditorDom<'a>,
+    pub font: Font,
+    pub paint: Paint,
 }
 
 impl<'a> LayoutMeasurer<usize> for TextMeasurer<'a> {
@@ -34,6 +34,7 @@ impl<'a> LayoutMeasurer<usize> for TextMeasurer<'a> {
                     return Some(line_len);
                 }
                 NodeType::Char(char) => return Some(measure_char(*char, &self.font, &self.paint)),
+                NodeType::Root => return None,
             }
         }
         None
@@ -55,6 +56,7 @@ pub struct LineChar<'a> {
 pub enum NodeType<'a> {
     Line { chars: Vec<RopeSlice<'a>> },
     Char(RopeSlice<'a>),
+    Root,
 }
 
 #[derive(Clone)]
@@ -74,9 +76,9 @@ pub struct EditorDom<'a> {
 impl<'a> EditorDom<'a> {
     pub fn add(
         &mut self,
-        line_id: usize,
+        id: usize,
         children: Vec<usize>,
-        line: Node,
+        node: Node,
         parent: Option<usize>,
         node_type: NodeType<'a>,
     ) {
@@ -86,12 +88,12 @@ impl<'a> EditorDom<'a> {
 
         let height = parent_height + 1;
         self.nodes.insert(
-            line_id,
+            id,
             EditorNode {
                 parent,
                 children,
                 height,
-                node: line,
+                node,
                 node_type,
             },
         );
