@@ -72,13 +72,27 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
             let mut next_line_start = region.min_y();
 
             for (line_idx, line) in rope.lines().enumerate() {
-                dom.add(line_idx, vec![2], Node::from_size_and_direction(
-                    Size::Pixels(Length::new(region.width())),
-                    Size::Pixels(Length::new(config.line_height)),
-                    DirectionMode::Horizontal,
-                ), Some(0), dom::NodeType::Line { chars: line.chars().map(|c| c).collect() });
-                let mut next_char_start = region.min_x();
+                dom.add(
+                    line_idx,
+                    vec![2],
+                    Node::from_size_and_direction(
+                        Size::Pixels(Length::new(region.width())),
+                        Size::Pixels(Length::new(config.line_height)),
+                        DirectionMode::Horizontal,
+                    ),
+                    Some(0),
+                    dom::NodeType::Line {
+                        chars: line.chars().map(|c| c).collect(),
+                    },
+                );
                 for (byte_idx, char) in line.chars().enumerate() {
+                    dom.add(
+                        byte_idx,
+                        vec![],
+                        Node::default(),
+                        Some(line_idx),
+                        dom::NodeType::Char(char),
+                    );
                     let text_blob = TextBlob::from_str(char.to_string().as_str(), &font);
                     let text_bounds = font.measure_text(char.to_string().as_str(), Some(&paint)).1;
                 }
