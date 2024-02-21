@@ -10,7 +10,7 @@ use ropey::RopeSlice;
 use skia_safe::{Font, Paint};
 
 pub struct TextMeasurer<'a> {
-    pub dom: &'a EditorDom,
+    pub dom: EditorDom,
     pub font: &'a Font,
     pub paint: &'a Paint,
 }
@@ -68,7 +68,7 @@ pub struct EditorNode {
     pub node_type: NodeType,
 }
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct EditorDom {
     pub nodes: HashMap<usize, EditorNode>,
 }

@@ -32,6 +32,7 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
 
     let canvas = use_canvas(&config, |config| {
         Box::new(move |canvas, _, region| {
+            let mut was_measured = false;
             let rope = config.document.rope.clone();
             canvas.translate((region.min_x(), region.min_y()));
 
@@ -51,28 +52,28 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
             let mut measurer = Some(TextMeasurer {
                 font: &font,
                 paint: &paint,
-                dom: &dom,
+                dom: dom.clone(),
             });
-            let mut was_measured = false;
-
-            // Add root node for the editor
-            dom.add(
-                0,
-                vec![1],
-                Node::from_size_and_alignments_and_direction(
-                    Size::Fill,
-                    Size::Fill,
-                    Alignment::Center,
-                    Alignment::Start,
-                    DirectionMode::Vertical,
-                ),
-                None,
-                dom::NodeType::Root,
-            );
 
             // let mut next_line_start = region.min_y();
 
             if !was_measured {
+                println!("measuring");
+                // Add root node for the editor
+                dom.add(
+                    0,
+                    vec![1],
+                    Node::from_size_and_alignments_and_direction(
+                        Size::Fill,
+                        Size::Fill,
+                        Alignment::Center,
+                        Alignment::Start,
+                        DirectionMode::Vertical,
+                    ),
+                    None,
+                    dom::NodeType::Root,
+                );
+
                 for (line_idx, line) in rope.lines().enumerate() {
                     dom.add(
                         line_idx,
@@ -106,6 +107,7 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                     &mut measurer,
                     &mut dom,
                 );
+                was_measured = true;
             }
 
             canvas.restore();
