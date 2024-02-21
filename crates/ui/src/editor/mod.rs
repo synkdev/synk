@@ -27,12 +27,15 @@ pub struct EditorConfig {
 pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
     let platform = use_platform();
     use_effect(move || {
-        platform.send(EventMessage::RequestRerender).expect("Couldn't request rerender");
+        platform
+            .send(EventMessage::RequestRerender)
+            .expect("Couldn't request rerender");
     });
 
     let canvas = use_canvas(&config, |config| {
         Box::new(move |canvas, _, region| {
             let mut was_measured = false;
+            let mut was_drawn = false;
             let rope = config.document.rope.clone();
             canvas.translate((region.min_x(), region.min_y()));
 
@@ -64,8 +67,8 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                     0,
                     vec![1],
                     Node::from_size_and_alignments_and_direction(
-                        Size::Fill,
-                        Size::Fill,
+                        Size::Percentage(Length::new(100.0)),
+                        Size::Percentage(Length::new(100.0)),
                         Alignment::Center,
                         Alignment::Start,
                         DirectionMode::Vertical,
@@ -108,6 +111,12 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                     &mut dom,
                 );
                 was_measured = true;
+            }
+
+            if !was_drawn {
+                for (id, node) in &torin.results {
+                    println!("{id:?} -> {:?}", node.area);
+                }
             }
 
             canvas.restore();
