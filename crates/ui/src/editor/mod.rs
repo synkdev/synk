@@ -2,9 +2,7 @@ pub mod document;
 pub mod dom;
 pub mod gutter;
 
-use freya::torin::*;
 use freya::{common::EventMessage, prelude::*};
-use skia_safe::TextBlob;
 use skia_safe::{
     font_style::{Slant, Weight, Width},
     Color, Font, FontMgr, FontStyle, Paint,
