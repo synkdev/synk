@@ -10,7 +10,7 @@ use ropey::RopeSlice;
 use skia_safe::{Font, Paint};
 
 pub struct TextMeasurer<'a> {
-    pub dom: &'a EditorDom<'a>,
+    pub dom: &'a EditorDom,
     pub font: &'a Font,
     pub paint: &'a Paint,
 }
@@ -41,46 +41,46 @@ impl<'a> LayoutMeasurer<usize> for TextMeasurer<'a> {
     }
 }
 
-pub fn measure_char(char: RopeSlice<'_>, font: &Font, paint: &Paint) -> Size2D {
+pub fn measure_char(char: char, font: &Font, paint: &Paint) -> Size2D {
     let text_bounds = font.measure_text(char.to_string().as_str(), Some(paint)).1;
     Size2D::new(text_bounds.width(), text_bounds.height())
 }
 
 #[derive(Clone)]
-pub struct LineChar<'a> {
-    pub char: RopeSlice<'a>,
+pub struct LineChar {
+    pub char: char,
     pub font: Font,
 }
 
 #[derive(Clone)]
-pub enum NodeType<'a> {
-    Line { chars: Vec<RopeSlice<'a>> },
-    Char(RopeSlice<'a>),
+pub enum NodeType {
+    Line { chars: Vec<char> },
+    Char(char),
     Root,
 }
 
 #[derive(Clone)]
-pub struct EditorNode<'a> {
+pub struct EditorNode {
     pub parent: Option<usize>,
     pub children: Vec<usize>,
     pub node: Node,
     pub height: u16,
-    pub node_type: NodeType<'a>,
+    pub node_type: NodeType,
 }
 
 #[derive(Default)]
-pub struct EditorDom<'a> {
-    pub nodes: HashMap<usize, EditorNode<'a>>,
+pub struct EditorDom {
+    pub nodes: HashMap<usize, EditorNode>,
 }
 
-impl<'a> EditorDom<'a> {
+impl EditorDom {
     pub fn add(
         &mut self,
         id: usize,
         children: Vec<usize>,
         node: Node,
         parent: Option<usize>,
-        node_type: NodeType<'a>,
+        node_type: NodeType,
     ) {
         let parent_height = parent
             .map(|p| self.nodes.get(&p).unwrap().height)
@@ -100,7 +100,7 @@ impl<'a> EditorDom<'a> {
     }
 }
 
-impl<'a> DOMAdapter<usize> for EditorDom<'a> {
+impl DOMAdapter<usize> for EditorDom {
     fn children_of(&mut self, node_id: &usize) -> Vec<usize> {
         self.nodes
             .get(node_id)
