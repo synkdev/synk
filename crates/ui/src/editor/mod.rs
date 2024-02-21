@@ -31,9 +31,6 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
 
     let canvas = use_canvas(&config, |config| {
         Box::new(move |canvas, _, region| {
-            // Dom stuff
-            let torin = Torin::<usize>::new();
-
             let rope = config.document.rope.clone();
             canvas.translate((region.min_x(), region.min_y()));
 
@@ -46,6 +43,11 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 .match_family_style(config.font_family, font_style)
                 .unwrap();
             let font = Font::from_typeface(font_family, config.font_size);
+
+            // Dom stuff
+            let torin = Torin::<usize>::new();
+            let measurer = TextMeasurer {font, paint, }
+
             let mut next_line_start = region.min_y();
 
             for (line_idx, line) in rope.lines().enumerate() {

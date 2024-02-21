@@ -118,6 +118,6 @@ impl<'a> DOMAdapter<usize> for EditorDom<'a> {
         self.nodes.get(node_id).and_then(|c| c.parent)
     }
     fn closest_common_parent(&self, node_a: &usize, _: &usize) -> Option<usize> {
-        node_a.parent.unwrap_or(*node_a)
+        Some(self.parent_of(node_a).unwrap_or(*node_a))
     }
 }
