@@ -32,8 +32,6 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
 
     let canvas = use_canvas(&config, |config| {
         Box::new(move |canvas, _, region| {
-            let mut was_measured = false;
-            let mut was_drawn = false;
             let rope = config.document.rope.clone();
             canvas.translate((region.min_x(), region.min_y()));
 
@@ -46,75 +44,6 @@ pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
                 .match_family_style(config.font_family, font_style)
                 .unwrap();
             let font = Font::from_typeface(font_family, config.font_size);
-
-            // Dom stuff
-            let mut torin = Torin::<usize>::new();
-            let mut dom = EditorDom::default();
-            let mut measurer = Some(TextMeasurer {
-                font: &font,
-                paint: &paint,
-                dom: dom.clone(),
-            });
-
-            // let mut next_line_start = region.min_y();
-
-            if !was_measured {
-                // Add root node for the editor
-                dom.add(
-                    0,
-                    vec![1],
-                    Node::from_size_and_alignments_and_direction(
-                        Size::Percentage(Length::new(100.0)),
-                        Size::Percentage(Length::new(100.0)),
-                        Alignment::Center,
-                        Alignment::Start,
-                        DirectionMode::Vertical,
-                    ),
-                    None,
-                    dom::NodeType::Root,
-                );
-
-                for (line_idx, line) in rope.lines().enumerate() {
-                    dom.add(
-                        line_idx,
-                        vec![2],
-                        Node::from_size_and_direction(
-                            Size::Pixels(Length::new(region.width())),
-                            Size::Pixels(Length::new(config.line_height)),
-                            DirectionMode::Horizontal,
-                        ),
-                        Some(0),
-                        dom::NodeType::Line {
-                            chars: line.chars().map(|c| c).collect(),
-                        },
-                    );
-                    for (byte_idx, char) in line.chars().enumerate() {
-                        println!("adding char");
-                        dom.add(
-                            byte_idx,
-                            vec![],
-                            Node::default(),
-                            Some(line_idx),
-                            dom::NodeType::Char(char),
-                        );
-                        // let text_blob = TextBlob::from_str(char.to_string().as_str(), &font);
-                        // let text_bounds = font.measure_text(char.to_string().as_str(), Some(&paint)).1;
-                    }
-                    // next_line_start += config.line_height;
-                }
-                torin.measure(
-                    0,
-                    Rect::new(region.min(), Size2D::new(1000.0, 100.0)),
-                    &mut measurer,
-                    &mut dom,
-                );
-                was_measured = true;
-                for (id, node) in &torin.results {
-                    println!("{id:?} -> {:?}", node.area);
-                }
-            }
-
-            if !was_drawn {}
 
             canvas.restore();
         })
