@@ -1,29 +1,52 @@
+pub mod document;
+pub mod dom;
 pub mod gutter;
 
-use freya::prelude::*;
-use synk_core::{
-    document::Document,
-    highlighter::{languages::Languages, theme::SyntaxTheme, RopeProvider, TSParser},
+use freya::{common::EventMessage, prelude::*};
+use skia_safe::{
+    font_style::{Slant, Weight, Width},
+    Color, Font, FontMgr, FontStyle, Paint,
 };
-use tree_sitter::QueryCursor;
+use synk_core::document::Document;
 
 use crate::{colors::Colors, editor::gutter::Gutter, separator::VerticalSeparator};
 
+#[derive(Clone, PartialEq)]
+pub struct EditorConfig {
+    pub document: Document,
+    pub line_height: f32,
+    pub font_family: &'static str,
+    pub font_size: f32,
+}
+
 #[allow(non_snake_case)]
 #[component]
-pub fn Editor(colors: Colors) -> Element {
-    let document = Document::new("fn main() {\n    println!(\"Hello World!\");\n}".to_string());
-    let parser = TSParser::new(Languages::Rust, document.rope.clone());
-    let query = parser.query;
-    let rope = parser.rope;
-    let tree = parser.tree;
-    let mut query_cursor = QueryCursor::new();
-    query_cursor.set_byte_range(rope.line_to_byte(0)..rope.line_to_byte(rope.len_lines()));
-    let theme = SyntaxTheme::default();
+pub fn Editor(colors: Colors, config: EditorConfig) -> Element {
+    let platform = use_platform();
+    use_effect(move || {
+        platform
+            .send(EventMessage::RequestRerender)
+            .expect("Couldn't request rerender");
+    });
 
-    let mut matches = query_cursor
-        .matches(&query, tree.root_node(), RopeProvider(rope.slice(..)))
-        .peekable();
+    let canvas = use_canvas(&config, |config| {
+        Box::new(move |canvas, _, region| {
+            let rope = config.document.rope.clone();
+            canvas.translate((region.min_x(), region.min_y()));
+
+            let mut paint = Paint::default();
+            paint.set_anti_alias(true);
+            paint.set_color(Color::WHITE);
+
+            let font_style = FontStyle::new(Weight::NORMAL, Width::NORMAL, Slant::Upright);
+            let font_family = FontMgr::new()
+                .match_family_style(config.font_family, font_style)
+                .unwrap();
+            let font = Font::from_typeface(font_family, config.font_size);
+
+            canvas.restore();
+        })
+    });
 
     rsx! {
         rect {
@@ -31,39 +54,19 @@ pub fn Editor(colors: Colors) -> Element {
             width: "100%",
             height: "calc(100% - 84)",
             direction: "horizontal",
-            Gutter { rope: document.rope.clone(), colors: colors.line_numbers }
+            Gutter {
+                rope: config.document.rope.clone(),
+                colors: colors.line_numbers,
+                line_height: config.line_height
+            }
             VerticalSeparator { interactive: false, reverse: false, colors: colors.separator }
-            rect { width: "calc(100% - 50)", height: "100%", direction: "vertical",
-                for (line_idx , line) in document.rope.lines().enumerate() {
-                    {
-                        let char_idx = rope.line_to_char(line_idx);
-                        let line_start_byte = rope.char_to_byte(char_idx);
-                        rsx! {
-                            rect {
-                                background: "{colors.editor.background}",
-                                width: "100%",
-                                height: "40",
-                                direction: "horizontal",
-                                cross_align: "center",
-                                paragraph { width: "100%", max_lines: "1", font_size: "16", font_family: "JetBrains Mono",
-                                    for (byte_idx , char) in line.chars().enumerate() {
-                                        {
-                                            let scope = TSParser::get_scope(&query, &mut matches, line_start_byte + byte_idx).unwrap_or("".to_string());
-                                            let color = theme.get_char_style(scope);
-                                            rsx!(
-                                                text {
-                                                    color: "{color.color}",
-                                                    font_weight: "{color.weight}",
-                                                    "{char}"
-                                                }
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            rect {
+                width: "calc(100% - 50)",
+                height: "100%",
+                direction: "vertical",
+                overflow: "clip",
+                onclick: move |_| { println!("clicked") },
+                canvas_reference: canvas.attribute()
             }
         }
     }

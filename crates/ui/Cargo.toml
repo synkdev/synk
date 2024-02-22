@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.79"
-freya = { git = "https://github.com/synkdev/freya", branch = "main" }
+freya = { git = "https://github.com/marc2332/freya", branch = "feat/mutable-font-collection-on-use-canvas" }
 dioxus = { git = "https://github.com/dioxuslabs/dioxus", branch = "master", features = [
     "macro",
     "hooks",
@@ -16,3 +16,4 @@ synk_core = { path = "../core", package = "core" }
 tree-sitter = "0.20.10"
 tree-sitter-rust = "0.20.4"
 cc = "*"
+skia-safe = "0.70.0"

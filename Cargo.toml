@@ -13,7 +13,7 @@ x11 = []
 ui = { path = "crates/ui" }
 core = { path = "crates/core" }
 anyhow = "1.0.79"
-freya = { git = "https://github.com/synkdev/freya", branch = "main" }
+freya = { git = "https://github.com/marc2332/freya", branch = "feat/mutable-font-collection-on-use-canvas" }
 dioxus = { git = "https://github.com/dioxuslabs/dioxus", branch = "master", features = [
 	"macro",
 	"hooks",

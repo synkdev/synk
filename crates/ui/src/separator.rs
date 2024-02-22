@@ -12,18 +12,21 @@ pub fn VerticalSeparator(
     mut callback: Option<Signal<isize>>,
 ) -> Element {
     if interactive {
-        let mut hover_anim =
-            use_animation_transition(TransitionAnimation::SineInOut(150), (), move |_| {
-                vec![
-                    Transition::new_color(colors.default.as_str(), colors.active.as_str()),
-                    Transition::new_size(1.0, 6.0),
-                ]
-            });
+        let hover_anim = use_animation(move |cx| {
+            (
+                cx.with(
+                    AnimColor::new(colors.default.as_str(), colors.active.as_str())
+                        .time(150)
+                        .ease(Ease::InOut),
+                ),
+                cx.with(AnimNum::new(1.0, 6.0).time(150).ease(Ease::InOut)),
+            )
+        });
 
         let platform = use_platform();
 
-        let color = hover_anim.get(0).unwrap().as_color();
-        let width = hover_anim.get(1).unwrap().as_size();
+        let anim = hover_anim.read();
+        let (color, width) = anim.get();
 
         let mut position = use_signal(|| 0usize);
         let mut is_clicked = use_signal::<Option<CursorPoint>>(|| None);
@@ -52,20 +55,19 @@ pub fn VerticalSeparator(
             rect {
                 width: "12",
                 height: "100%",
+                direction: "horizontal",
                 onglobalmouseover,
                 onglobalclick,
                 onmousedown,
-                onmouseover: move |_| {hover_anim.start(); },
-                onmouseleave: move |_| {hover_anim.reverse();},
-                direction: "horizontal",
+                onmouseover: move |_| { hover_anim.read().start(); },
+                onmouseleave: move |_| {hover_anim.read().reverse();},
                 if reverse {
-                    rect { height: "100%", width: "{width}", background: "{color}" }
-                    rect { height: "100%", width: "calc(100% - {width})" }
+                    rect { height: "100%", width: "{width.read().as_f32()}", background: "{color.read().as_string()}" }
+                    rect { height: "100%", width: "calc(100% - {width.read().as_f32()})", background: "{color.read().as_string()}" }
                 } else {
-                    rect { height: "100%", width: "calc(100% - {width})" }
-                    rect { height: "100%", width: "{width}", background: "{color}" }
+                    rect { height: "100%", width: "calc(100% - {width.read().as_f32()})"}
+                    rect { height: "100%", width: "{width.read().as_f32()}", background: "{color.read().as_string()}"  }
                 }
-
             }
         }
     } else {
@@ -82,16 +84,19 @@ pub fn HorizontalSeparator(
     mut callback: Option<Signal<isize>>,
 ) -> Element {
     if interactive {
-        let hover_anim =
-            use_animation_transition(TransitionAnimation::SineInOut(150), (), move |_| {
-                vec![
-                    Transition::new_color(colors.default.as_str(), colors.active.as_str()),
-                    Transition::new_size(1.0, 6.0),
-                ]
-            });
+        let hover_anim = use_animation(move |cx| {
+            (
+                cx.with(
+                    AnimColor::new(colors.default.as_str(), colors.active.as_str())
+                        .time(150)
+                        .ease(Ease::InOut),
+                ),
+                cx.with(AnimNum::new(1.0, 6.0).time(150).ease(Ease::InOut)),
+            )
+        });
 
-        let color = hover_anim.get(0).unwrap().as_color();
-        let height = hover_anim.get(1).unwrap().as_size();
+        let anim = hover_anim.read();
+        let (color, height) = anim.get();
 
         let mut position = use_signal(|| 0usize);
         let mut is_clicked = use_signal::<Option<CursorPoint>>(|| None);
@@ -121,15 +126,15 @@ pub fn HorizontalSeparator(
                 onglobalmouseover,
                 onglobalclick,
                 onmousedown,
-                onmouseover: {to_owned![hover_anim]; move |_| {hover_anim.start()}},
-                onmouseleave: {to_owned![hover_anim]; move |_| {hover_anim.reverse()}},
+                onmouseover: move |_| {hover_anim.read().start(); },
+                onmouseleave: move |_| {hover_anim.read().reverse();},
                 direction: "horizontal",
                 if reverse {
-                    rect { width: "100%", height: "{height}", background: "{color}" }
-                    rect { width: "100%", height: "calc(100% - {height})" }
+                        rect { width: "100%", height: "{height.read().as_f32()}", background: "{color.read().as_string()}" }
+                    rect { width: "100%", height: "calc(100% - {height.read().as_f32()})" }
                 } else {
-                    rect { width: "100%", height: "calc(100% - {height})" }
-                    rect { width: "100%", height: "{height}", background: "{color}" }
+                    rect { width: "100%", height: "calc(100% - {height.read().as_f32()})" }
+                    rect { width: "100%", height: "{height.read().as_f32()}", background: "{color.read().as_string()}" }
                 }
 
             }

@@ -3,6 +3,7 @@ use std::path::PathBuf;
 
 use ropey::Rope;
 
+#[derive(Clone, PartialEq)]
 pub struct Document {
     pub rope: Rope,
 }
